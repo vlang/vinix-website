@@ -38,6 +38,7 @@ body {
 
 .header-text {
 	flex: 1 0 16rem;
+	font-family: "Roboto Mono", "Courier New", Courier, monospace;
 }
 
 .header-external-links {
@@ -69,6 +70,8 @@ body {
 	top: 80%;
 	left: 50%;
 	width: 100%;
+	font-family: "Raleway", sans-serif;
+	font-weight: 500;
 	transform: translate(-50%, -50%);
 }
 
