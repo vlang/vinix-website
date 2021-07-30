@@ -1,6 +1,7 @@
 :root {
 	--accent-color: #0b131e;
 	--background-color: #ffdcdb;
+	--header-text-color: #76433e;
 
 	color: var(--accent-color);
 	font-size: 16px;
@@ -10,10 +11,7 @@
 	:root {
 		--accent-color: #ffdcdb;
 		--background-color: #0b131e;
-	}
-
-	.header-text {
-		color: #727975;
+		--header-text-color: #727975;
 	}
 }
 
@@ -38,7 +36,8 @@ body {
 
 .header-text {
 	flex: 1 0 16rem;
-	font-family: "Roboto Mono", "Courier New", Courier, monospace;
+	color: var(--header-text-color);
+	font-family: "Source Code Pro", "Courier New", Courier, monospace;
 }
 
 .header-external-links {
@@ -70,8 +69,7 @@ body {
 	top: 80%;
 	left: 50%;
 	width: 100%;
-	font-family: "Raleway", sans-serif;
-	font-weight: 500;
+	font-family: "Inter", sans-serif;
 	transform: translate(-50%, -50%);
 }
 
