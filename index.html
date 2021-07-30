@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Vinix OS</title>
 
-		<link rel="stylesheet" href="index.css" />
+		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
 		<header class="header">
@@ -25,18 +25,29 @@
 					href="https://discord.gg/vlang"
 					target="_blank"
 				>
-					<img
-						class="header-external-img"
-						src="assets/Discord-Logo-Black.png"
-						alt="Discord"
-					/>
+					<picture>
+						<source
+							media="(prefers-color-scheme: dark)"
+							srcset="assets/Discord-Logo-White.png"
+						/>
+						<img
+							src="assets/Discord-Logo-Black.png"
+							alt="Discord"
+						/>
+					</picture>
 				</a>
 				<a
 					class="header-external-link"
 					href="https://github.com/vlang/vinix"
 					target="_blank"
 				>
-					<img src="assets/GitHub-Mark-32px.png" alt="GitHub" />
+					<picture>
+						<source
+							media="(prefers-color-scheme: dark)"
+							srcset="assets/GitHub-Mark-Light-32px.png"
+						/>
+						<img src="assets/GitHub-Mark-32px.png" alt="GitHub" />
+					</picture>
 				</a>
 			</div>
 		</header>

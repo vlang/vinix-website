@@ -1,4 +1,11 @@
 <svg version="1.1" id="VINIX" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 200 61.9" fill="#0b131e">
+	<style>
+		@media (prefers-color-scheme: dark) {
+			svg {
+				fill: #ffdcdb;
+			}
+		}
+	</style>
 	<polygon points="45.4,10.1 26.3,51.8 26.3,51.8 6.7,10.1 16.8,10.1 26.3,31.3 35.9,10.1 " />
 	<rect x="57.4" y="10.1" width="9.5" height="41.7" />
 	<polygon points="107.8,10.1 107.8,30.9 84.5,10.1 84.5,10.1 84.5,51.8 94,51.8 94,31 117.3,51.8 117.3,51.8 117.3,10.1 " />

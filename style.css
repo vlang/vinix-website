@@ -1,11 +1,26 @@
 :root {
+	--accent-color: #0b131e;
+	--background-color: #ffdcdb;
+
+	color: var(--accent-color);
 	font-size: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--accent-color: #ffdcdb;
+		--background-color: #0b131e;
+	}
+
+	.header-text {
+		color: #727975;
+	}
 }
 
 body {
 	margin: 0;
 	padding: 1rem;
-	background-color: hsl(0, 100%, 94%);
+	background-color: var(--background-color);
 }
 
 .header {
@@ -23,7 +38,6 @@ body {
 
 .header-text {
 	flex: 1 0 16rem;
-	margin-bottom: 1rem;
 }
 
 .header-external-links {
@@ -77,7 +91,7 @@ body {
 	width: 1rem;
 	height: 1rem;
 	padding: 1px;
-	border: solid #0b131e;
+	border: solid var(--accent-color);
 	border-width: 0 5px 5px 0;
 	transform: rotateZ(45deg);
 }
