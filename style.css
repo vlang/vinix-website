@@ -1,7 +1,7 @@
 :root {
 	--accent-color: #0b131e;
-	--background-color: #ffdcdb;
-	--header-text-color: #76433e;
+	--background-color: #f2f2f2;
+	--header-text-color: #727975;
 
 	color: var(--accent-color);
 	font-size: 16px;
@@ -9,9 +9,9 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--accent-color: #ffdcdb;
+		--accent-color: #f2f2f2;
 		--background-color: #0b131e;
-		--header-text-color: #727975;
+		--header-text-color: #cccccc;
 	}
 }
 

@@ -2,7 +2,7 @@
 	<style>
 		@media (prefers-color-scheme: dark) {
 			svg {
-				fill: #ffdcdb;
+				fill: #f2f2f2;
 			}
 		}
 	</style>
