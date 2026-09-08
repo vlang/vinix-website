@@ -70,9 +70,18 @@ footer {
 	letter-spacing: 0.045em;
 }
 
-nav {
+.header-actions,
+nav,
+.social-links {
 	display: flex;
 	align-items: center;
+}
+
+.header-actions {
+	gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+nav {
 	gap: clamp(1rem, 3vw, 2.25rem);
 	font-family: "Source Code Pro", monospace;
 	font-size: 0.78rem;
@@ -80,15 +89,41 @@ nav {
 	letter-spacing: 0.04em;
 }
 
-nav a,
-.footer-links a {
+nav a {
 	text-decoration: none;
 }
 
-nav a:hover,
-.footer-links a:hover {
+nav a:hover {
 	text-decoration: underline;
 	text-underline-offset: 0.3em;
+}
+
+.social-links {
+	gap: 0.75rem;
+}
+
+.social-link {
+	display: grid;
+	width: 2rem;
+	height: 2rem;
+	place-items: center;
+	transition: opacity 150ms ease;
+}
+
+.social-link:hover {
+	opacity: 0.58;
+}
+
+.social-link picture,
+.social-link img {
+	display: block;
+}
+
+.social-link img {
+	width: auto;
+	max-width: 1.7rem;
+	height: auto;
+	max-height: 1.45rem;
 }
 
 .hero {
@@ -181,23 +216,7 @@ h1 {
 }
 
 .software-heading .eyebrow {
-	margin-bottom: 0.75rem;
-}
-
-.software-heading h2 {
-	max-width: 18ch;
-	margin-bottom: 0.75rem;
-	font-size: clamp(1.65rem, 2.5vw, 2.4rem);
-	line-height: 1.05;
-	letter-spacing: -0.04em;
-}
-
-.software-heading > p:last-child {
-	max-width: 34rem;
 	margin-bottom: 0;
-	color: var(--muted);
-	font-size: 0.82rem;
-	line-height: 1.55;
 }
 
 .software-group {
@@ -286,6 +305,49 @@ h2 {
 	color: var(--muted);
 	font-size: 1.05rem;
 	line-height: 1.7;
+}
+
+.showcase {
+	border-bottom: 1px solid var(--line);
+}
+
+.screenshot-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.screenshot-grid figure {
+	margin: 0;
+	border: 1px solid var(--line);
+}
+
+.screenshot-grid a,
+.screenshot-grid img {
+	display: block;
+}
+
+.screenshot-grid a {
+	overflow: hidden;
+}
+
+.screenshot-grid img {
+	width: 100%;
+	height: auto;
+	transition: transform 250ms ease;
+}
+
+.screenshot-grid a:hover img {
+	transform: scale(1.015);
+}
+
+.screenshot-grid figcaption {
+	padding: 1rem 1.25rem;
+	border-top: 1px solid var(--line);
+	color: var(--muted);
+	font-family: "Source Code Pro", monospace;
+	font-size: 0.72rem;
+	line-height: 1.5;
 }
 
 .principles {
@@ -550,11 +612,6 @@ footer p {
 	margin: 0;
 }
 
-.footer-links {
-	display: flex;
-	gap: 1.5rem;
-}
-
 @media (prefers-color-scheme: dark) {
 	:root {
 		--ink: #f2f2f2;
@@ -617,6 +674,12 @@ footer p {
 		width: 5.75rem;
 	}
 
+	.header-actions {
+		align-items: flex-end;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
 	nav {
 		align-items: flex-end;
 		flex-direction: column;
@@ -642,7 +705,8 @@ footer p {
 	}
 
 	.principles,
-	.roadmap-columns {
+	.roadmap-columns,
+	.screenshot-grid {
 		grid-template-columns: 1fr;
 	}
 
@@ -671,6 +735,11 @@ footer p {
 	}
 
 	.button {
+		transition: none;
+	}
+
+	.social-link,
+	.screenshot-grid img {
 		transition: none;
 	}
 }

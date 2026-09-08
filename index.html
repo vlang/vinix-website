@@ -17,27 +17,53 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="style.css?v=7dfbae3b" />
+		<link rel="stylesheet" href="style.css?v=ed721ef2" />
 	</head>
 	<body>
 		<header class="site-header">
 			<a class="wordmark" href="#top" aria-label="Vinix home">
 				<img src="assets/vinix-logo.svg" alt="Vinix" />
-				<span>A modern operating system</span>
+				<span>A modern operating system in V</span>
 			</a>
-			<nav aria-label="Main navigation">
-				<a href="#about">About</a>
-				<a href="#roadmap">Roadmap</a>
-				<a href="#comparison">M1 comparison</a>
-				<a href="#download">Download</a>
-				<a href="https://github.com/vlang/vinix">GitHub</a>
-			</nav>
+			<div class="header-actions">
+				<nav aria-label="Main navigation">
+					<a href="#about">About</a>
+					<a href="#roadmap">Roadmap</a>
+					<a href="#comparison">M1 comparison</a>
+					<a href="#download">Download</a>
+				</nav>
+				<div class="social-links" aria-label="Vinix community links">
+					<a
+						class="social-link"
+						href="https://discord.com/invite/S5Nm6ZDU38"
+						target="_blank"
+						rel="noreferrer"
+						aria-label="Vinix on Discord"
+					>
+						<picture>
+							<source media="(prefers-color-scheme: dark)" srcset="assets/Discord-Logo-White.png" />
+							<img src="assets/Discord-Logo-Black.png" alt="" />
+						</picture>
+					</a>
+					<a
+						class="social-link"
+						href="https://github.com/vlang/vinix"
+						target="_blank"
+						rel="noreferrer"
+						aria-label="Vinix on GitHub"
+					>
+						<picture>
+							<source media="(prefers-color-scheme: dark)" srcset="assets/GitHub-Mark-Light-32px.png" />
+							<img src="assets/GitHub-Mark-32px.png" alt="" />
+						</picture>
+					</a>
+				</div>
+			</div>
 		</header>
 
 		<main id="top">
 			<section class="hero" aria-labelledby="hero-title">
 				<div class="hero-copy">
-					<p class="eyebrow">An operating system written in V</p>
 					<h1 id="hero-title">Modern, fast,<br />and useful.</h1>
 					<p class="hero-intro">
 						Vinix is an effort to build a practical operating system in the
@@ -54,9 +80,7 @@
 				</div>
 				<aside class="software-panel" aria-labelledby="software-title">
 					<div class="software-heading">
-						<p class="eyebrow">Runs on Vinix</p>
-						<h2 id="software-title">Real software, already working.</h2>
-						<p>Native, staged, or package-installable across current aarch64 and amd64 builds.</p>
+						<p class="eyebrow" id="software-title">Runs on Vinix</p>
 					</div>
 					<div class="software-group">
 						<h3>Languages &amp; toolchains</h3>
@@ -115,9 +139,44 @@
 
 			<div class="status-note" role="note">
 				<span class="status-dot" aria-hidden="true"></span>
-				<strong>Pre-alpha software.</strong> Vinix is under active development and is not
+				<strong>Alpha software.</strong> Vinix is under active development and is not
 				intended for daily or production use yet.
 			</div>
+
+			<section class="section showcase" aria-labelledby="showcase-title">
+				<div class="section-heading">
+					<p class="eyebrow">Vinix in action</p>
+					<h2 id="showcase-title">From source to desktop.</h2>
+				</div>
+				<div class="screenshot-grid">
+					<figure>
+						<a href="assets/screenshot0.png" aria-label="Open the Vinix terminal screenshot at full size">
+							<img
+								src="assets/screenshot0.png"
+								width="1024"
+								height="768"
+								loading="lazy"
+								decoding="async"
+								alt="Vinix terminal compiling and running C and C++ hello-world programs with GCC and G++"
+							/>
+						</a>
+						<figcaption>Native C and C++ development with GCC and G++.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/screenshot1.png" aria-label="Open the Vinix desktop screenshot at full size">
+							<img
+								src="assets/screenshot1.png"
+								width="1024"
+								height="768"
+								loading="lazy"
+								decoding="async"
+								alt="Vinix X desktop running TWM, xeyes, and Ace of Penguins minesweeper"
+							/>
+						</a>
+						<figcaption>X.org, TWM, xeyes, and Ace of Penguins.</figcaption>
+					</figure>
+				</div>
+			</section>
 
 			<section class="section" id="about" aria-labelledby="about-title">
 				<div class="section-heading">
@@ -280,7 +339,7 @@
 							</tr>
 							<tr>
 								<th scope="row">Release status</th>
-								<td><strong>Pre-alpha nightly</strong><span>For development and testing.</span></td>
+								<td><strong>Alpha nightly</strong><span>For development and testing.</span></td>
 								<td><strong>Supported release</strong><span>For everyday and production use.</span></td>
 							</tr>
 						</tbody>
@@ -313,9 +372,31 @@
 
 		<footer>
 			<p>Vinix is open source and built by its community.</p>
-			<div class="footer-links">
-				<a href="https://github.com/vlang/vinix">GitHub</a>
-				<a href="https://discord.com/invite/S5Nm6ZDU38">Discord</a>
+			<div class="social-links" aria-label="Vinix community links">
+				<a
+					class="social-link"
+					href="https://discord.com/invite/S5Nm6ZDU38"
+					target="_blank"
+					rel="noreferrer"
+					aria-label="Vinix on Discord"
+				>
+					<picture>
+						<source media="(prefers-color-scheme: dark)" srcset="assets/Discord-Logo-White.png" />
+						<img src="assets/Discord-Logo-Black.png" alt="" />
+					</picture>
+				</a>
+				<a
+					class="social-link"
+					href="https://github.com/vlang/vinix"
+					target="_blank"
+					rel="noreferrer"
+					aria-label="Vinix on GitHub"
+				>
+					<picture>
+						<source media="(prefers-color-scheme: dark)" srcset="assets/GitHub-Mark-Light-32px.png" />
+						<img src="assets/GitHub-Mark-32px.png" alt="" />
+					</picture>
+				</a>
 			</div>
 		</footer>
 	</body>
