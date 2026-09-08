@@ -2,73 +2,161 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vinix OS</title>
+		<meta
+			name="description"
+			content="Vinix is a modern operating system written in the V programming language."
+		/>
+		<meta name="theme-color" content="#f2f2f2" />
+		<title>Vinix — A modern operating system written in V</title>
 
+		<link rel="icon" href="assets/vinix-logo.svg" type="image/svg+xml" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Source+Code+Pro:wght@500&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<header class="header">
-			<!-- <img
-				class="header-logo"
-				src="http://placeholder.pics/svg/64"
-				alt="Vinix OS Logo"
-			/> -->
-			<div class="header-text">
-				Vinix is an effort to write a modern, fast, <br />
-				and useful operating system in the V programming language
-			</div>
-			<div class="header-external-links">
-				<a
-					class="header-external-link"
-					href="https://discord.com/invite/S5Nm6ZDU38"
-					target="_blank"
-				>
-					<picture>
-						<source
-							media="(prefers-color-scheme: dark)"
-							srcset="assets/Discord-Logo-White.png"
-						/>
-						<img
-							src="assets/Discord-Logo-Black.png"
-							alt="Discord"
-						/>
-					</picture>
-				</a>
-				<a
-					class="header-external-link"
-					href="https://github.com/vlang/vinix"
-					target="_blank"
-				>
-					<picture>
-						<source
-							media="(prefers-color-scheme: dark)"
-							srcset="assets/GitHub-Mark-Light-32px.png"
-						/>
-						<img src="assets/GitHub-Mark-32px.png" alt="GitHub" />
-					</picture>
-				</a>
-			</div>
+		<header class="site-header">
+			<a class="wordmark" href="#top" aria-label="Vinix home">
+				<img src="assets/vinix-logo.svg" alt="Vinix" />
+			</a>
+			<nav aria-label="Main navigation">
+				<a href="#about">About</a>
+				<a href="#roadmap">Roadmap</a>
+				<a href="#download">Download</a>
+				<a href="https://github.com/vlang/vinix">GitHub</a>
+			</nav>
 		</header>
-		<main>
-			<div class="brand">
-				<img
-					class="brand-title"
-					src="assets/vinix-logo.svg"
-					alt="Vinix"
-				/>
-				<h2 class="brand-subtitle">A Modern Operating System</h2>
-				<!-- TODO Uncomment when there is content above -->
-				<!-- <div class="brand-arrow-down"></div> -->
+
+		<main id="top">
+			<section class="hero" aria-labelledby="hero-title">
+				<div class="hero-copy">
+					<p class="eyebrow">An operating system written in V</p>
+					<h1 id="hero-title">Modern, fast,<br />and useful.</h1>
+					<p class="hero-intro">
+						Vinix is an effort to build a practical operating system in the
+						<a href="https://vlang.io">V programming language</a>—with simple code,
+						modern hardware in mind, and enough Linux compatibility to bring useful
+						software along.
+					</p>
+					<div class="hero-actions">
+						<a class="button button-primary" href="https://github.com/vlang/vinix/releases">
+							Download nightly
+						</a>
+						<a class="button" href="https://github.com/vlang/vinix">Explore the source</a>
+					</div>
+				</div>
+				<div class="hero-mark" aria-hidden="true">
+					<img src="assets/vinix-logo.svg" alt="" />
+					<span>A modern operating system</span>
+				</div>
+			</section>
+
+			<div class="status-note" role="note">
+				<span class="status-dot" aria-hidden="true"></span>
+				<strong>Pre-alpha software.</strong> Vinix is under active development and is not
+				intended for daily or production use yet.
 			</div>
-			<!-- Here will go the content of the website -->
+
+			<section class="section" id="about" aria-labelledby="about-title">
+				<div class="section-heading">
+					<p class="eyebrow">What Vinix is about</p>
+					<h2 id="about-title">A usable system,<br />not just an experiment.</h2>
+				</div>
+				<div class="principles">
+					<article>
+						<span>01</span>
+						<h3>Simple and correct</h3>
+						<p>Keep the code easy to understand without sacrificing performance or correctness.</p>
+					</article>
+					<article>
+						<span>02</span>
+						<h3>Built for real hardware</h3>
+						<p>Make a useful OS that runs beyond emulators and virtual machines.</p>
+					</article>
+					<article>
+						<span>03</span>
+						<h3>Modern foundations</h3>
+						<p>Target 64-bit architectures, current CPU features, and multi-core computing.</p>
+					</article>
+					<article>
+						<span>04</span>
+						<h3>Linux-friendly</h3>
+						<p>Maintain source-level compatibility so existing programs are easier to port.</p>
+					</article>
+					<article>
+						<span>05</span>
+						<h3>Push V further</h3>
+						<p>Explore V on bare metal and improve the compiler for systems programming.</p>
+					</article>
+					<article>
+						<span>06</span>
+						<h3>Have fun</h3>
+						<p>Learn, experiment, and enjoy building an operating system together.</p>
+					</article>
+				</div>
+			</section>
+
+			<section class="section roadmap" id="roadmap" aria-labelledby="roadmap-title">
+				<div class="section-heading">
+					<p class="eyebrow">Project roadmap</p>
+					<h2 id="roadmap-title">Already running.<br />Still moving.</h2>
+					<p>
+						The foundation reaches from a native toolchain and familiar userland to
+						desktops on both major architectures.
+					</p>
+				</div>
+				<div class="roadmap-columns">
+					<div>
+						<h3>Available today</h3>
+						<ul class="check-list">
+							<li>mlibc, bash, GCC/G++, V, and nano</li>
+							<li>Storage drivers and ext2</li>
+							<li>X.org and an X window manager</li>
+							<li>Wayland with Hyprland on aarch64</li>
+							<li>
+								<a href="https://github.com/vlang/vinix/blob/master/docs/hypervisor.md">
+									Intel VT-x hypervisor
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h3>On the horizon</h3>
+						<ul class="pending-list">
+							<li>Networking</li>
+							<li>V-UI</li>
+							<li>Intel HD graphics driver</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section class="download" id="download" aria-labelledby="download-title">
+				<div>
+					<p class="eyebrow">Try it out</p>
+					<h2 id="download-title">Boot the latest nightly.</h2>
+					<p>
+						Pre-built Vinix images are published through GitHub Releases. Give the VM at
+						least 8 GiB of memory; Vinix currently loads its root filesystem into a ramdisk.
+					</p>
+				</div>
+				<a class="button button-light" href="https://github.com/vlang/vinix/releases">
+					View nightly releases
+				</a>
+			</section>
 		</main>
+
+		<footer>
+			<p>Vinix is open source and built by its community.</p>
+			<div class="footer-links">
+				<a href="https://github.com/vlang/vinix">GitHub</a>
+				<a href="https://discord.com/invite/S5Nm6ZDU38">Discord</a>
+			</div>
+		</footer>
 	</body>
 </html>
