@@ -17,7 +17,7 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="style.css?v=ed721ef2" />
+		<link rel="stylesheet" href="style.css?v=20260908" />
 	</head>
 	<body>
 		<header class="site-header">
@@ -85,53 +85,56 @@
 					<div class="software-group">
 						<h3>Languages &amp; toolchains</h3>
 						<div class="software-list">
-							<span>V</span>
-							<span>Clang / LLVM</span>
-							<span>GCC / G++</span>
-							<span>Go</span>
-							<span>Rust / Cargo</span>
-							<span>Node.js / npm</span>
-							<span>Python 3</span>
-							<span>Ruby 3</span>
+							<span><img src="assets/logos/llvm.svg" alt="" />Clang / LLVM</span>
+							<span><img src="assets/logos/gnu.svg" alt="" />GCC / G++</span>
+							<span><img src="assets/logos/go.svg" alt="" />Go</span>
+							<span><img src="assets/logos/rust.svg" alt="" />Rust / Cargo</span>
+							<span><img src="assets/logos/nodedotjs.svg" alt="" />Node.js / npm</span>
+							<span><img src="assets/logos/python.svg" alt="" />Python 3</span>
+							<span><img src="assets/logos/ruby.svg" alt="" />Ruby 3</span>
+							<span><img class="software-logo-v" src="assets/logos/v.png" alt="" />V</span>
 						</div>
 					</div>
 					<div class="software-group">
 						<h3>Developer &amp; infrastructure</h3>
 						<div class="software-list">
-							<span>Git</span>
-							<span>OpenSSH</span>
-							<span>curl</span>
-							<span>nginx</span>
-							<span>GNU Make</span>
-							<span>CMake</span>
-							<span>Meson</span>
-							<span>GDB</span>
-							<span>strace</span>
-							<span>SQLite</span>
-							<span>Bash</span>
-							<span>BusyBox</span>
-							<span>pkg / APK / XBPS</span>
+							<span><img src="assets/logos/git.svg" alt="" />Git</span>
+							<span><img src="assets/logos/linux.svg" alt="" />OpenSSH</span>
+							<span><img src="assets/logos/curl.svg" alt="" />curl</span>
+							<span><img src="assets/logos/nginx.svg" alt="" />nginx</span>
+							<span><img src="assets/logos/gnu.svg" alt="" />GNU Make</span>
+							<span><img src="assets/logos/cmake.svg" alt="" />CMake</span>
+							<span><img src="assets/logos/cmake.svg" alt="" />Meson</span>
+							<span><img src="assets/logos/linux.svg" alt="" />GDB</span>
+							<span><img src="assets/logos/linux.svg" alt="" />strace</span>
+							<span><img src="assets/logos/sqlite.svg" alt="" />SQLite</span>
+							<span><img src="assets/logos/gnubash.svg" alt="" />Bash</span>
+							<span><img src="assets/logos/linux.svg" alt="" />BusyBox</span>
+							<span>
+								<img src="assets/logos/freebsd.svg" alt="" />
+								<img src="assets/logos/alpinelinux.svg" alt="" />
+								<img src="assets/logos/voidlinux.svg" alt="" />
+								pkg / APK / XBPS
+							</span>
 						</div>
 					</div>
 					<div class="software-group software-group-featured">
 						<h3>Desktop &amp; applications</h3>
 						<div class="software-list">
-							<span>Firefox ESR</span>
-							<span>Codex CLI</span>
-							<span>Wine</span>
-							<span>Minecraft / Minetest</span>
-							<span>Gnumeric</span>
-							<span>GTK 3</span>
-							<span>X.org</span>
-							<span>Hyprland</span>
-							<span>Mesa / OpenGL</span>
-							<span>Nano</span>
-							<span>Terminal</span>
-							<span>File Browser</span>
-							<span>Activity Monitor</span>
-							<span>Settings</span>
-							<span>Calendar / Clock</span>
-							<span>Cocoa Calculator</span>
+							<span><img src="assets/logos/firefox.svg" alt="" />Firefox ESR</span>
+							<span><img src="assets/logos/ghostty.svg" alt="" />Codex CLI</span>
+							<span><img src="assets/logos/wine.svg" alt="" />Wine</span>
+							<span><img src="assets/logos/linux.svg" alt="" />Minecraft / Minetest</span>
+							<span><img src="assets/logos/gnome.svg" alt="" />Gnumeric</span>
+							<span><img src="assets/logos/gnome.svg" alt="" />GTK 3</span>
+							<span><img src="assets/logos/opengl.svg" alt="" />X.org</span>
+							<span><img src="assets/logos/wayland.svg" alt="" />Wayland</span>
+							<span><img src="assets/logos/hyprland.svg" alt="" />Hyprland</span>
+							<span><img src="assets/logos/opengl.svg" alt="" />Mesa / OpenGL</span>
+							<span><img src="assets/logos/ghostty.svg" alt="" />Nano</span>
+							<span><img src="assets/logos/vim.svg" alt="" />Vim</span>
+							<span><img src="assets/logos/ghostty.svg" alt="" />Terminal</span>
+							<span><img src="assets/logos/gnome.svg" alt="" />File Browser</span>
 						</div>
 					</div>
 				</aside>
@@ -145,35 +148,34 @@
 
 			<section class="section showcase" aria-labelledby="showcase-title">
 				<div class="section-heading">
-					<p class="eyebrow">Vinix in action</p>
-					<h2 id="showcase-title">From source to desktop.</h2>
+					<p class="eyebrow" id="showcase-title">Vinix in action</p>
 				</div>
 				<div class="screenshot-grid">
 					<figure>
-						<a href="assets/screenshot0.png" aria-label="Open the Vinix terminal screenshot at full size">
+						<a href="assets/vinix-qemu-desktop.png" aria-label="Open the Vinix QEMU desktop screenshot at full size">
 							<img
-								src="assets/screenshot0.png"
+								src="assets/vinix-qemu-desktop.png"
 								width="1024"
-								height="768"
+								height="888"
 								loading="lazy"
 								decoding="async"
-								alt="Vinix terminal compiling and running C and C++ hello-world programs with GCC and G++"
+								alt="Vinix desktop in QEMU with system, files, welcome, and calculator windows open"
 							/>
 						</a>
-						<figcaption>Native C and C++ development with GCC and G++.</figcaption>
+						<figcaption>Vinix desktop running in QEMU.</figcaption>
 					</figure>
 					<figure>
-						<a href="assets/screenshot1.png" aria-label="Open the Vinix desktop screenshot at full size">
+						<a href="assets/vinix-m1-desktop.png" aria-label="Open the Vinix M1 desktop screenshot at full size">
 							<img
-								src="assets/screenshot1.png"
-								width="1024"
-								height="768"
+								src="assets/vinix-m1-desktop.png"
+								width="1970"
+								height="1794"
 								loading="lazy"
 								decoding="async"
-								alt="Vinix X desktop running TWM, xeyes, and Ace of Penguins minesweeper"
+								alt="Vinix desktop running on a 2020 M1 MacBook Air"
 							/>
 						</a>
-						<figcaption>X.org, TWM, xeyes, and Ace of Penguins.</figcaption>
+						<figcaption>Vinix desktop on an M1 MacBook Air.</figcaption>
 					</figure>
 				</div>
 			</section>

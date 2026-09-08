@@ -247,12 +247,24 @@ h1 {
 .software-list span {
 	display: inline-flex;
 	align-items: center;
+	gap: 0.38rem;
 	min-height: 1.8rem;
 	padding: 0.28rem 0.5rem;
 	background: var(--surface);
 	font-family: "Source Code Pro", monospace;
 	font-size: 0.67rem;
 	line-height: 1.25;
+}
+
+.software-list img {
+	width: 0.9rem;
+	height: 0.9rem;
+	flex: 0 0 auto;
+	object-fit: contain;
+}
+
+.software-list .software-logo-v {
+	border-radius: 0.14rem;
 }
 
 .software-group-featured .software-list span {
@@ -309,6 +321,10 @@ h2 {
 
 .showcase {
 	border-bottom: 1px solid var(--line);
+}
+
+.showcase .section-heading {
+	margin-bottom: 2rem;
 }
 
 .screenshot-grid {
