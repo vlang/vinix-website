@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# Deploy the static site with an explicit rsync destination.
-# Example: DEPLOY_TARGET='web@host:/var/www/vinix/' ./deploy.sh
+# Deploy the static site to vinix-os.org.
+# Override the destination when needed, e.g.:
+# DEPLOY_TARGET='web@host:/var/www/vinix/' ./deploy.sh
 
 set -euo pipefail
 
 site_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-deploy_target="${DEPLOY_TARGET:-}"
+deploy_target="${DEPLOY_TARGET:-vpm:/var/www/vinix-os.org/}"
 dry_run=""
 
 if [[ "${1:-}" == "--dry-run" ]]; then
@@ -14,12 +15,7 @@ if [[ "${1:-}" == "--dry-run" ]]; then
 fi
 
 if [[ $# -ne 0 ]]; then
-	echo "usage: DEPLOY_TARGET=user@host:/path/ $0 [--dry-run]" >&2
-	exit 1
-fi
-
-if [[ -z "$deploy_target" ]]; then
-	echo "error: set DEPLOY_TARGET to the server and directory to publish to" >&2
+	echo "usage: $0 [--dry-run]" >&2
 	exit 1
 fi
 

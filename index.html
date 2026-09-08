@@ -29,7 +29,7 @@
 				<nav aria-label="Main navigation">
 					<a href="#about">About</a>
 					<a href="#roadmap">Roadmap</a>
-					<a href="#comparison">M1 comparison</a>
+					<a href="#sponsor">Sponsor development</a>
 					<a href="#download">Download</a>
 				</nav>
 				<div class="social-links" aria-label="Vinix community links">
@@ -231,49 +231,47 @@
 				</div>
 			</section>
 
-			<section class="section" id="about" aria-labelledby="about-title">
+			<section class="section" id="about" aria-label="What Vinix is about">
 				<div class="section-heading">
 					<p class="eyebrow">What Vinix is about</p>
-					<h2 id="about-title">A usable system,<br />not just an experiment.</h2>
 				</div>
 				<div class="principles">
 					<article>
 						<span>01</span>
-						<h3>Simple and correct</h3>
-						<p>Keep the code easy to understand without sacrificing performance or correctness.</p>
+						<h3>Use the screen well</h3>
+						<p>No extra padding or rounded corners. More room for your work.</p>
 					</article>
 					<article>
 						<span>02</span>
-						<h3>Built for real hardware</h3>
-						<p>Make a useful OS that runs beyond emulators and virtual machines.</p>
+						<h3>One way to do things</h3>
+						<p>One distro, package manager, init system, and binary format. It all works together.</p>
 					</article>
 					<article>
 						<span>03</span>
-						<h3>Modern foundations</h3>
-						<p>Target 64-bit architectures, current CPU features, and multi-core computing.</p>
+						<h3>Change what you need</h3>
+						<p>Customize the system to work the way you want.</p>
 					</article>
 					<article>
 						<span>04</span>
-						<h3>Linux-friendly</h3>
-						<p>Maintain source-level compatibility so existing programs are easier to port.</p>
+						<h3>Themes you can choose</h3>
+						<p>Pick from many themes. Make it look like macOS Catalina, Windows XP, or your own desktop.</p>
 					</article>
 					<article>
 						<span>05</span>
-						<h3>Push V further</h3>
-						<p>Explore V on bare metal and improve the compiler for systems programming.</p>
+						<h3>Uses few resources</h3>
+						<p>Uses about 100 MB of RAM at startup and little disk space.</p>
 					</article>
 					<article>
 						<span>06</span>
-						<h3>Have fun</h3>
-						<p>Learn, experiment, and enjoy building an operating system together.</p>
+						<h3>Stays small</h3>
+						<p>Vinix stays small and minimal. It will not get bloated with each release.</p>
 					</article>
 				</div>
 			</section>
 
-			<section class="section roadmap" id="roadmap" aria-labelledby="roadmap-title">
+			<section class="section roadmap" id="roadmap" aria-label="Project roadmap">
 				<div class="section-heading">
 					<p class="eyebrow">Project roadmap</p>
-					<h2 id="roadmap-title">Already running.<br />Still moving.</h2>
 					<p>
 						The foundation reaches from a native toolchain and familiar userland to
 						desktops on both major architectures.
@@ -305,107 +303,23 @@
 				</div>
 			</section>
 
-			<section
-				class="section comparison"
-				id="comparison"
-				aria-labelledby="comparison-title"
-			>
+			<section class="section sponsor" id="sponsor" aria-labelledby="sponsor-title">
 				<div class="section-heading">
-					<p class="eyebrow">M1 MacBook Air snapshot</p>
-					<h2 id="comparison-title">Vinix and the latest macOS.</h2>
+					<p class="eyebrow">Support Vinix</p>
+					<h2 id="sponsor-title">Sponsor the development.</h2>
 					<p>
-						A practical look at the current Vinix nightly beside macOS Tahoe 26.5.1
-						on the 2020 M1 MacBook Air. This is a development-status comparison, not a
-						performance claim.
+						Help make Vinix a better operating system. Your sponsorship gives the project
+						more time and resources for development.
 					</p>
 				</div>
-
-				<div class="comparison-table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table">
-					<table>
-						<caption>
-							Vinix nightly and macOS Tahoe 26.5.1 on a 2020 M1 MacBook Air
-						</caption>
-						<thead>
-							<tr>
-								<th scope="col">Measure</th>
-								<th scope="col">Vinix nightly</th>
-								<th scope="col">macOS Tahoe 26.5.1</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">Memory to start</th>
-								<td>
-									<strong>8 GiB recommended</strong>
-									<span>The desktop root filesystem is currently loaded into RAM.</span>
-								</td>
-								<td>
-									<strong>8 or 16 GB installed</strong>
-									<span>The M1 MacBook Air shipped with 8 GB, configurable to 16 GB.</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">RAM used at idle</th>
-								<td>
-									<strong class="measurement-pending">Measurement pending</strong>
-									<span>The built-in Activity Monitor now reports real used and free memory.</span>
-								</td>
-								<td>
-									<strong class="measurement-pending">No fixed Apple figure</strong>
-									<span>Usage varies with configuration, login items, and background services.</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">Cold boot to desktop</th>
-								<td>
-									<strong class="measurement-pending">Measurement pending</strong>
-									<span>A same-device cold-boot result has not been recorded yet.</span>
-								</td>
-								<td>
-									<strong class="measurement-pending">No fixed Apple figure</strong>
-									<span>Apple does not publish a standard M1 cold-boot time.</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">Native architecture</th>
-								<td><strong>AArch64</strong><span>Kernel and native desktop written in V.</span></td>
-								<td><strong>Apple silicon</strong><span>Darwin/XNU with the Aqua desktop.</span></td>
-							</tr>
-							<tr>
-								<th scope="row">Apps and compatibility</th>
-								<td>
-									<strong>Growing Linux compatibility</strong>
-									<span>V, GCC, Firefox ESR, bash, and selected Linux software.</span>
-								</td>
-								<td>
-									<strong>Production macOS ecosystem</strong>
-									<span>Native Mac applications and mature developer tooling.</span>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">M1 hardware support</th>
-								<td>
-									<strong>Experimental</strong>
-									<span>Display, input, battery, Wi-Fi, and storage work is in active development.</span>
-								</td>
-								<td><strong>Fully supported</strong><span>The M1 Air is on Apple's Tahoe compatibility list.</span></td>
-							</tr>
-							<tr>
-								<th scope="row">Release status</th>
-								<td><strong>Alpha nightly</strong><span>For development and testing.</span></td>
-								<td><strong>Supported release</strong><span>For everyday and production use.</span></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<p class="comparison-note">
-					Numeric RAM-at-idle and boot-time results will be added after both systems are
-					measured from a cold start on the same M1 MacBook Air. Sources:
-					<a href="https://support.apple.com/en-us/109033">latest macOS version</a>,
-					<a href="https://support.apple.com/en-us/122727">Tahoe compatibility</a>, and
-					<a href="https://support.apple.com/en-us/111883">M1 MacBook Air specifications</a>.
-				</p>
+				<a
+					class="button button-primary"
+					href="https://github.com/sponsors/medvednikov"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Sponsor on GitHub
+				</a>
 			</section>
 
 			<section class="download" id="download" aria-labelledby="download-title">
