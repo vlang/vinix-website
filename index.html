@@ -17,7 +17,7 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="style.css?v=96c2bd4b" />
 	</head>
 	<body>
 		<header class="site-header">
@@ -27,6 +27,7 @@
 			<nav aria-label="Main navigation">
 				<a href="#about">About</a>
 				<a href="#roadmap">Roadmap</a>
+				<a href="#comparison">M1 comparison</a>
 				<a href="#download">Download</a>
 				<a href="https://github.com/vlang/vinix">GitHub</a>
 			</nav>
@@ -134,6 +135,109 @@
 						</ul>
 					</div>
 				</div>
+			</section>
+
+			<section
+				class="section comparison"
+				id="comparison"
+				aria-labelledby="comparison-title"
+			>
+				<div class="section-heading">
+					<p class="eyebrow">M1 MacBook Air snapshot</p>
+					<h2 id="comparison-title">Vinix and the latest macOS.</h2>
+					<p>
+						A practical look at the current Vinix nightly beside macOS Tahoe 26.5.1
+						on the 2020 M1 MacBook Air. This is a development-status comparison, not a
+						performance claim.
+					</p>
+				</div>
+
+				<div class="comparison-table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table">
+					<table>
+						<caption>
+							Vinix nightly and macOS Tahoe 26.5.1 on a 2020 M1 MacBook Air
+						</caption>
+						<thead>
+							<tr>
+								<th scope="col">Measure</th>
+								<th scope="col">Vinix nightly</th>
+								<th scope="col">macOS Tahoe 26.5.1</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">Memory to start</th>
+								<td>
+									<strong>8 GiB recommended</strong>
+									<span>The desktop root filesystem is currently loaded into RAM.</span>
+								</td>
+								<td>
+									<strong>8 or 16 GB installed</strong>
+									<span>The M1 MacBook Air shipped with 8 GB, configurable to 16 GB.</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">RAM used at idle</th>
+								<td>
+									<strong class="measurement-pending">Measurement pending</strong>
+									<span>The built-in Activity Monitor now reports real used and free memory.</span>
+								</td>
+								<td>
+									<strong class="measurement-pending">No fixed Apple figure</strong>
+									<span>Usage varies with configuration, login items, and background services.</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">Cold boot to desktop</th>
+								<td>
+									<strong class="measurement-pending">Measurement pending</strong>
+									<span>A same-device cold-boot result has not been recorded yet.</span>
+								</td>
+								<td>
+									<strong class="measurement-pending">No fixed Apple figure</strong>
+									<span>Apple does not publish a standard M1 cold-boot time.</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">Native architecture</th>
+								<td><strong>AArch64</strong><span>Kernel and native desktop written in V.</span></td>
+								<td><strong>Apple silicon</strong><span>Darwin/XNU with the Aqua desktop.</span></td>
+							</tr>
+							<tr>
+								<th scope="row">Apps and compatibility</th>
+								<td>
+									<strong>Growing Linux compatibility</strong>
+									<span>V, GCC, Firefox ESR, bash, and selected Linux software.</span>
+								</td>
+								<td>
+									<strong>Production macOS ecosystem</strong>
+									<span>Native Mac applications and mature developer tooling.</span>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">M1 hardware support</th>
+								<td>
+									<strong>Experimental</strong>
+									<span>Display, input, battery, Wi-Fi, and storage work is in active development.</span>
+								</td>
+								<td><strong>Fully supported</strong><span>The M1 Air is on Apple's Tahoe compatibility list.</span></td>
+							</tr>
+							<tr>
+								<th scope="row">Release status</th>
+								<td><strong>Pre-alpha nightly</strong><span>For development and testing.</span></td>
+								<td><strong>Supported release</strong><span>For everyday and production use.</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<p class="comparison-note">
+					Numeric RAM-at-idle and boot-time results will be added after both systems are
+					measured from a cold start on the same M1 MacBook Air. Sources:
+					<a href="https://support.apple.com/en-us/109033">latest macOS version</a>,
+					<a href="https://support.apple.com/en-us/122727">Tahoe compatibility</a>, and
+					<a href="https://support.apple.com/en-us/111883">M1 MacBook Air specifications</a>.
+				</p>
 			</section>
 
 			<section class="download" id="download" aria-labelledby="download-title">
