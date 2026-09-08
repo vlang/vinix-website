@@ -162,17 +162,58 @@ h1 {
 	letter-spacing: -0.065em;
 }
 
-.hero-intro {
+.hero-screenshot {
+	display: block;
 	max-width: 42rem;
 	margin-bottom: 2.25rem;
-	color: var(--muted);
-	font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-	line-height: 1.7;
+	border-radius: 1.5rem;
+	overflow: hidden;
 }
 
-.hero-intro a {
-	text-decoration-thickness: 1px;
-	text-underline-offset: 0.2em;
+.hero-screenshot img {
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: transform 250ms ease;
+}
+
+.hero-screenshot:hover img {
+	transform: scale(1.015);
+}
+
+
+.hero-highlights {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.75rem;
+	margin-bottom: 2.25rem;
+}
+
+.hero-highlights p {
+	display: flex;
+	align-items: end;
+	min-height: 7.25rem;
+	margin: 0;
+	padding: 1rem;
+	background: var(--surface);
+	font-size: clamp(1.35rem, 2.15vw, 2rem);
+	font-weight: 700;
+	line-height: 1.05;
+	letter-spacing: -0.045em;
+}
+
+.hero-highlights p:last-child {
+	grid-column: 1 / -1;
+}
+
+.m-series-note {
+	margin: 0.85rem 0 0;
+	color: var(--muted);
+	font-family: "Source Code Pro", monospace;
+	font-size: 0.7rem;
+	line-height: 1.5;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
 }
 
 .hero-actions {
@@ -241,30 +282,30 @@ h1 {
 .software-list {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.4rem;
+	gap: 0.52rem;
 }
 
 .software-list span {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.38rem;
-	min-height: 1.8rem;
-	padding: 0.28rem 0.5rem;
+	gap: 0.494rem;
+	min-height: 2.34rem;
+	padding: 0.364rem 0.65rem;
 	background: var(--surface);
 	font-family: "Source Code Pro", monospace;
-	font-size: 0.67rem;
+	font-size: 0.871rem;
 	line-height: 1.25;
 }
 
 .software-list img {
-	width: 0.9rem;
-	height: 0.9rem;
+	width: 1.17rem;
+	height: 1.17rem;
 	flex: 0 0 auto;
 	object-fit: contain;
 }
 
 .software-list .software-logo-v {
-	border-radius: 0.14rem;
+	border-radius: 0.182rem;
 }
 
 .software-group-featured .software-list span {
@@ -358,11 +399,11 @@ h2 {
 }
 
 .screenshot-grid figcaption {
-	padding: 1rem 1.25rem;
+	padding: 1.3rem 1.625rem;
 	border-top: 1px solid var(--line);
 	color: var(--muted);
 	font-family: "Source Code Pro", monospace;
-	font-size: 0.72rem;
+	font-size: 0.936rem;
 	line-height: 1.5;
 }
 
@@ -706,6 +747,16 @@ footer p {
 		padding-block: 4.5rem;
 	}
 
+	.hero-highlights {
+		grid-template-columns: 1fr;
+	}
+
+	.hero-highlights p,
+	.hero-highlights p:last-child {
+		grid-column: auto;
+		min-height: 5.5rem;
+	}
+
 	.software-group {
 		grid-template-columns: 1fr;
 		gap: 0.75rem;
@@ -755,6 +806,7 @@ footer p {
 	}
 
 	.social-link,
+	.hero-screenshot img,
 	.screenshot-grid img {
 		transition: none;
 	}

@@ -17,7 +17,7 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="style.css?v=20260908" />
+		<link rel="stylesheet" href="style.css?v=20260908-5" />
 	</head>
 	<body>
 		<header class="site-header">
@@ -62,21 +62,33 @@
 		</header>
 
 		<main id="top">
-			<section class="hero" aria-labelledby="hero-title">
+			<section class="hero" aria-label="Vinix desktop preview">
 				<div class="hero-copy">
-					<h1 id="hero-title">Modern, fast,<br />and useful.</h1>
-					<p class="hero-intro">
-						Vinix is an effort to build a practical operating system in the
-						<a href="https://vlang.io">V programming language</a>—with simple code,
-						modern hardware in mind, and enough Linux compatibility to bring useful
-						software along.
-					</p>
+					<a class="hero-screenshot" href="assets/vinix-qemu-hero.png" aria-label="Open the Vinix QEMU desktop screenshot at full size">
+						<img
+							src="assets/vinix-qemu-hero.png"
+							width="1347"
+							height="1168"
+							fetchpriority="high"
+							decoding="async"
+							alt="Vinix desktop in QEMU with system, files, welcome, and calculator windows open"
+						/>
+					</a>
+					<div class="hero-highlights" aria-label="Vinix benefits">
+						<p>100 MB RAM<br />usage on boot</p>
+						<p>Instant<br />everything</p>
+						<p>Efficient usage<br />of space</p>
+					</div>
 					<div class="hero-actions">
+						<a class="button" href="https://github.com/vlang/vinix#readme">
+							Install on your M1/M2 Mac in 10 minutes
+						</a>
 						<a class="button button-primary" href="https://github.com/vlang/vinix/releases">
 							Download nightly
 						</a>
 						<a class="button" href="https://github.com/vlang/vinix">Explore the source</a>
 					</div>
+					<p class="m-series-note">M3, M4, M5 support coming soon.</p>
 				</div>
 				<aside class="software-panel" aria-labelledby="software-title">
 					<div class="software-heading">
@@ -152,19 +164,6 @@
 				</div>
 				<div class="screenshot-grid">
 					<figure>
-						<a href="assets/vinix-qemu-desktop.png" aria-label="Open the Vinix QEMU desktop screenshot at full size">
-							<img
-								src="assets/vinix-qemu-desktop.png"
-								width="1024"
-								height="888"
-								loading="lazy"
-								decoding="async"
-								alt="Vinix desktop in QEMU with system, files, welcome, and calculator windows open"
-							/>
-						</a>
-						<figcaption>Vinix desktop running in QEMU.</figcaption>
-					</figure>
-					<figure>
 						<a href="assets/vinix-m1-desktop.png" aria-label="Open the Vinix M1 desktop screenshot at full size">
 							<img
 								src="assets/vinix-m1-desktop.png"
@@ -176,6 +175,58 @@
 							/>
 						</a>
 						<figcaption>Vinix desktop on an M1 MacBook Air.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-wine-apps.png" aria-label="Open the Vinix Wine applications screenshot at full size">
+							<img
+								src="assets/vinix-wine-apps.png"
+								width="1024"
+								height="768"
+								loading="lazy"
+								decoding="async"
+								alt="Wine Calculator and Wine Notepad running on the Vinix desktop"
+							/>
+						</a>
+						<figcaption>Wine apps: Calculator and Notepad.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-minecraft.png" aria-label="Open the Vinix Minecraft screenshot at full size">
+							<img
+								src="assets/vinix-minecraft.png"
+								width="1024"
+								height="768"
+								loading="lazy"
+								decoding="async"
+								alt="Minecraft running in a Vinix desktop window"
+							/>
+						</a>
+						<figcaption>Minecraft.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-wayland-hyprland.png" aria-label="Open the Vinix Wayland and Hyprland screenshot at full size">
+							<img
+								src="assets/vinix-wayland-hyprland.png"
+								width="2048"
+								height="1536"
+								loading="lazy"
+								decoding="async"
+								alt="Vinix Wayland desktop dashboard showing Hyprland running in QEMU"
+							/>
+						</a>
+						<figcaption>Wayland / Hyprland on Vinix.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-gnumeric.png" aria-label="Open the Vinix Gnumeric screenshot at full size">
+							<img
+								src="assets/vinix-gnumeric.png"
+								width="2292"
+								height="1846"
+								loading="lazy"
+								decoding="async"
+								alt="Gnumeric spreadsheet running in Vinix QEMU"
+							/>
+						</a>
+						<figcaption>Gnumeric on Vinix.</figcaption>
 					</figure>
 				</div>
 			</section>
