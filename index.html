@@ -14,7 +14,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="style.css?v=20260908-5" />
@@ -28,6 +28,7 @@
 			<div class="header-actions">
 				<nav aria-label="Main navigation">
 					<a href="#about">About</a>
+					<a href="#faq">FAQ</a>
 					<a href="#roadmap">Roadmap</a>
 					<a href="#sponsor">Sponsor development</a>
 					<a href="#download">Download</a>
@@ -269,6 +270,76 @@
 				</div>
 			</section>
 
+			<section class="section faq" id="faq" aria-labelledby="faq-title">
+				<p class="eyebrow" id="faq-title">Frequently asked questions</p>
+				<div class="faq-list">
+					<article class="faq-item">
+						<h3>Is Vinix a Linux distribution?</h3>
+						<div class="faq-answer">
+							<p>
+								No. Vinix is an independently developed, Unix-like operating system with its own kernel,
+								drivers, process model, filesystem layer, and system calls. It targets x86-64 and ARM64;
+								Linux is not running underneath it. “Distro” sometimes describes the downloadable image,
+								but Vinix does not use the Linux kernel.
+							</p>
+							<p>
+								It deliberately follows familiar Unix and Linux conventions where that makes software easier
+								to port. Compatibility is a practical goal, not the operating system’s foundation.
+							</p>
+						</div>
+					</article>
+					<article class="faq-item">
+						<h3>What is the technology stack?</h3>
+						<div class="faq-answer">
+							<p>
+								Vinix boots with <a href="https://github.com/limine-bootloader/limine">Limine</a>, a
+								bootloader that loads the Vinix kernel and supplies the early memory, framebuffer, and
+								boot-module information. Above it is a freestanding kernel written mostly in V, with C
+								and a small amount of architecture-specific assembly where hardware requires it.
+							</p>
+							<p>
+								The original kernel core was written by mintsuki, the creator of Limine. Vinix has since
+								grown its own memory management, multitasking, storage, networking, input, graphics, and
+								Unix-style userspace support. The system image pairs that kernel with an initramfs and a
+								familiar command-line and development userland; native Vinix applications and its desktop
+								are written in V with V UI2.
+							</p>
+						</div>
+					</article>
+					<article class="faq-item">
+						<h3>How can Vinix run Alpine Linux binaries?</h3>
+						<div class="faq-answer">
+							<p>
+								On ARM64, Vinix can use selected Alpine Linux aarch64/musl packages. They run natively on
+								the same CPU architecture: there is no Linux virtual machine and no CPU emulation in that
+								path. Vinix supplies the supported Linux-facing ELF, musl, and system-call behaviour the
+								programs expect.
+							</p>
+							<p>
+								The <code>pkg</code> tool resolves a package and its runtime dependencies from Alpine’s
+								repositories, stages them in the Vinix image, and skips Alpine maintainer scripts that
+								assume Alpine’s own init system. This is targeted compatibility, so supported and tested
+								applications work directly while unimplemented Linux kernel features can still limit others.
+							</p>
+						</div>
+					</article>
+					<article class="faq-item">
+						<h3>What desktop environment and window manager does Vinix use?</h3>
+						<div class="faq-answer">
+							<p>
+								The default is Vinix’s own native desktop: a V + V UI2 desktop environment and window
+								manager in one. It reads input and draws directly to the framebuffer, compositing its own
+								windows without a display server beneath it.
+							</p>
+							<p>
+								Vinix also supports X.org with an X window manager, plus an optional ARM64 Wayland session
+								using Hyprland. Those are compatibility and experimentation paths; the native Vinix desktop
+								remains the normal session.
+							</p>
+						</div>
+					</article>
+				</div>
+			</section>
 			<section class="section roadmap" id="roadmap" aria-label="Project roadmap">
 				<div class="section-heading">
 					<p class="eyebrow">Project roadmap</p>
