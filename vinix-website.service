@@ -1,0 +1,18 @@
+[Unit]
+Description=Vinix OS website (Veb)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/vinix-os.org
+Environment=PORT=8095
+Environment="VINIX_DB_CONNINFO=host=/var/run/postgresql dbname=vinix user=vinix"
+Environment=PGTZ=UTC
+ExecStart=/var/www/vinix-os.org/vinix-website
+Restart=on-failure
+RestartSec=5
+MemoryHigh=192M
+MemoryMax=256M
+
+[Install]
+WantedBy=multi-user.target
