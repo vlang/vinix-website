@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 WorkingDirectory=/var/www/vinix-os.org
 Environment=PORT=8095
-Environment="VINIX_DB_CONNINFO=host=/var/run/postgresql dbname=vinix user=vinix"
+Environment="VINIX_DB_CONNINFO=host=127.0.0.1 port=5432 dbname=vinix user=vinix"
 Environment=PGTZ=UTC
 ExecStart=/var/www/vinix-os.org/vinix-website
 Restart=on-failure

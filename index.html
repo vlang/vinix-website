@@ -126,7 +126,7 @@
 					<div class="hero-highlights" aria-label="Vinix benefits">
 						<p>100 MB RAM<br />usage on boot</p>
 						<p>≈1 GB of disk <br> space after install</p>
-						<p>Instant<br />everything</p>
+						<p>Official support of <br> Apple Silicon Macs</p>
 						<p>Compatible with<br />Alpine Linux binaries</p>
 					</div>
 					<div class="hero-actions">
@@ -203,6 +203,8 @@
 							<span><img src="assets/logos/ghostty.svg" alt="" />Nano</span>
 							<span><img src="assets/logos/vim.svg" alt="" />Vim</span>
 							<span><img src="assets/logos/ghostty.svg" alt="" />Terminal</span>
+							<span><img src="assets/logos/tmux.svg" alt="" />tmux</span>
+							<span><img src="assets/logos/sublimetext.svg" alt="" />Sublime Text</span>
 							<span><img src="assets/logos/gnome.svg" alt="" />File Browser</span>
 						</div>
 					</div>
@@ -306,7 +308,7 @@
 					</article>
 					<article>
 						<h3>One way to do things</h3>
-						<p>One distro, package manager, init system, and binary format. No need to make constant choices. And it all just works.</p>
+						<p>One distro, UI, package manager, init system, and binary format. No need to make constant choices. And it all just works.</p>
 					</article>
 					<article>
 						<h3>Change what you need</h3>
@@ -322,7 +324,19 @@
 					</article>
 					<article>
 						<h3>Stays small</h3>
-						<p>Vinix stays small and minimal. It will not get bloated with each release.</p>
+						<p>Vinix stays small and minimal. It will not get more bloated with each release.</p>
+					</article>
+					<article class="supported-hardware">
+						<h3>Officially supported hardware</h3>
+						<p>
+							Vinix initially is going to support every Apple Silicon Mac (only M1 Macs for now as of Sep 10 2026). 
+							<p/>
+							<p>
+					Support for Intel Macs, back to the 2010 Mac mini, is next. So you can give an older Mac a fast, modern, fully supported OS.
+						</p>
+						<p>
+							The entire stack is built and tested together. No hunting for drivers or workarounds for sleep, wake, lid closing, hibernation, Wi-Fi, graphics, audio, or the other hardware basics that too often turn a Linux install into a project.
+						</p>
 					</article>
 				</div>
 			</section>
@@ -336,8 +350,7 @@
 							<p>
 								No. Vinix is an independently developed, Unix-like operating system with its own kernel,
 								drivers, process model, filesystem layer, and system calls. It targets x86-64 and ARM64;
-								Linux is not running underneath it. “Distro” sometimes describes the downloadable image,
-								but Vinix does not use the Linux kernel.
+								Linux is not running underneath it. But you can run Alpine Linux binaries on Vinix.
 							</p>
 							<p>
 								It deliberately follows familiar Unix and Linux conventions where that makes software easier
@@ -349,15 +362,16 @@
 						<h3>What is the technology stack?</h3>
 						<div class="faq-answer">
 							<p>
-								Vinix boots with <a href="https://github.com/limine-bootloader/limine">Limine</a>, a
+								Vinix boots with <a target=_blank href="https://github.com/limine-bootloader/limine">Limine</a>, a
 								bootloader that loads the Vinix kernel and supplies the early memory, framebuffer, and
 								boot-module information. Above it is a freestanding kernel written mostly in V, with C
 								and a small amount of architecture-specific assembly where hardware requires it.
 							</p>
 							<p>
-								The original kernel core was written by mintsuki, the creator of Limine. Vinix has since
-								grown its own memory management, multitasking, storage, networking, input, graphics, and
-								Unix-style userspace support. The system image pairs that kernel with an initramfs and a
+								The original kernel core (including its physical and virtual memory managers and scheduler) was written by <a href="https://github.com/mintsuki" target=_blank>mintsuki</a>, the creator of Limine. After a roughly two-year pause in development, <a href="https://github.com/medvednikov" target=_blank>Alexander Medvednikov</a> became its new maintainer. Since then, Vinix got storage, networking, input, graphics, 
+								Unix-style userspace support, and compatibility with Alpine Linux binaries.
+
+							<p>The system image pairs that kernel with an initramfs and a
 								familiar command-line and development userland; native Vinix applications and its desktop
 								are written in V with V UI2.
 							</p>

@@ -165,7 +165,7 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 		height := count * 100 / highest_day
 		label := day[5..]
 		active_class := if day == selected_day { ' is-selected' } else { '' }
-		chart.write_string('<li class="stats-chart-day${active_class}" data-value="${day}: ${count} visit${plural_suffix(count)}"><a href="/stats228?day=${day}#hourly-visits" title="${day}: ${count} visit${plural_suffix(count)}" aria-label="Show ${day} by hour"><span class="stats-chart-bar" style="height: ${height}%"></span><span class="stats-chart-label">${label}</span></a></li>')
+		chart.write_string('<li class="stats-chart-day${active_class}"><a href="/stats228?day=${day}#hourly-visits" title="${day}: ${count} visit${plural_suffix(count)}" aria-label="Show ${day} by hour"><span class="stats-chart-bar" style="height: ${height}%"><span class="stats-chart-tooltip">${day}: ${count} visit${plural_suffix(count)}</span></span><span class="stats-chart-label">${label}</span></a></li>')
 	}
 
 	mut highest_hour := 1
@@ -179,7 +179,7 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 		count := hourly_visits[hour]
 		height := count * 100 / highest_hour
 		label := if hour < 10 { '0${hour}' } else { hour.str() }
-		hourly_chart.write_string('<li class="stats-chart-day" data-value="${label}:00 UTC: ${count} human visit${plural_suffix(count)}" title="${selected_day} ${label}:00 UTC: ${count} human visit${plural_suffix(count)}"><span class="stats-chart-bar" style="height: ${height}%"></span><span class="stats-chart-label">${label}</span></li>')
+		hourly_chart.write_string('<li class="stats-chart-day" title="${selected_day} ${label}:00 UTC: ${count} human visit${plural_suffix(count)}"><span class="stats-chart-bar" style="height: ${height}%"><span class="stats-chart-tooltip">${label}:00 UTC: ${count} human visit${plural_suffix(count)}</span></span><span class="stats-chart-label">${label}</span></li>')
 	}
 
 	mut referral_rows := []ReferralCount{}

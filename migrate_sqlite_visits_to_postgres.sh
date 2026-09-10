@@ -53,11 +53,11 @@ SQL
 source_count="$(sqlite3 -readonly "$source_db" 'SELECT COUNT(*) FROM visits;')"
 target_count="$(psql "$conninfo" -v ON_ERROR_STOP=1 -Atqc 'SELECT COUNT(*) FROM visits;')"
 if [[ "$target_count" != "0" ]]; then
-	if [[ "$target_count" == "$source_count" ]]; then
-		echo "PostgreSQL already contains all ${target_count} SQLite visit records."
+	if (( target_count >= source_count )); then
+		echo "PostgreSQL already contains the ${source_count} SQLite visit records."
 		exit 0
 	fi
-	fail "PostgreSQL already contains ${target_count} visits; SQLite has ${source_count}. Refusing to duplicate or overwrite data."
+	fail "PostgreSQL has ${target_count} visits but SQLite has ${source_count}. Refusing to duplicate or overwrite data."
 fi
 
 sqlite3 -readonly -csv "$source_db" "SELECT ${timestamp_expr}, ${referral_expr}, ${country_expr}, ${bot_expr} FROM visits ORDER BY id;" |

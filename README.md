@@ -18,7 +18,7 @@ v run .
 
 The site listens on `http://localhost:8080`. Set `PORT` to choose another port
 and `VINIX_DB_CONNINFO` to a PostgreSQL libpq connection string, for example
-`host=/var/run/postgresql dbname=vinix user=vinix`.
+`host=127.0.0.1 port=5432 dbname=vinix user=vinix`.
 
 Build an optimized binary for production with:
 

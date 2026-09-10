@@ -490,6 +490,19 @@ h2 {
 	border-bottom: 1px solid var(--line);
 }
 
+.principles .supported-hardware {
+	grid-column: 1 / -1;
+	min-height: auto;
+}
+
+.supported-hardware p {
+	max-width: 58rem;
+}
+
+.supported-hardware p + p {
+	margin-top: 0.75rem;
+}
+
 h3 {
 	margin-bottom: 0.75rem;
 	font-size: 1.05rem;
@@ -975,28 +988,31 @@ footer p {
 	min-width: 0;
 }
 
-.stats-chart-day::after {
+.stats-chart-tooltip {
 	position: absolute;
-	bottom: calc(100% + 0.6rem);
+	bottom: calc(100% + 0.5rem);
 	left: 50%;
 	z-index: 2;
 	padding: 0.35rem 0.5rem;
-	background: var(--ink);
-	color: var(--page-bg);
-	content: attr(data-value);
+	border: 1px solid var(--ink);
+	background: var(--page-bg);
+	color: var(--ink);
+	box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
 	font-family: "Source Code Pro", monospace;
 	font-size: 0.7rem;
 	line-height: 1.2;
 	white-space: nowrap;
 	transform: translateX(-50%);
 	opacity: 0;
+	visibility: hidden;
 	pointer-events: none;
-	transition: opacity 120ms ease;
+	transition: opacity 120ms ease, visibility 120ms ease;
 }
 
-.stats-chart-day:hover::after,
-.stats-chart-day:focus-within::after {
+.stats-chart-day:hover .stats-chart-tooltip,
+.stats-chart-day:focus-within .stats-chart-tooltip {
 	opacity: 1;
+	visibility: visible;
 }
 
 .stats-chart-day > a,
@@ -1013,6 +1029,7 @@ footer p {
 
 .stats-chart-bar {
 	display: block;
+	position: relative;
 	width: 100%;
 	min-height: 2px;
 	background: var(--status-color);
