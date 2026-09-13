@@ -443,6 +443,64 @@ cd vinix
 				<p class="eyebrow" id="faq-title">Frequently asked questions</p>
 				<div class="faq-list">
 					<article class="faq-item">
+						<h3>Why Vinix over macOS?</h3>
+						<div class="faq-answer">
+							<p>
+								This is the main reason Vinix exists: to offer a fast, open source, minimal operating
+								system for MacBooks. Apple builds excellent hardware, and there was no lightweight
+								system built specifically for it.
+							</p>
+							<p>
+								macOS gets slower and more bloated with every release. The same Mac that felt instant
+								when you bought it feels sluggish a few updates later, and the system now takes tens of
+								gigabytes of disk and gigabytes of RAM before you open a single app. Releases have also
+								become less stable, with questionable design choices, settings that get rearranged or
+								removed, features nobody asked for, and more of the system tied to online accounts and
+								services.
+							</p>
+							<p>
+								Vinix goes the other way. It starts in about 100 MB of RAM and 1 GB of disk, boots in
+								seconds, and stays that way. The entire system is open source, so you can read any part
+								of it, change it, and rebuild it yourself. Nothing phones home.
+							</p>
+						</div>
+					</article>
+					<article class="faq-item">
+						<h3>Why Vinix over Linux?</h3>
+						<div class="faq-answer">
+							<p>
+								Fewer reasons here. Linux is a good system, and if it works for you there is no need to
+								switch.
+							</p>
+							<p>
+								What Vinix offers is minimalism and a system without systemd. There is one way to do
+								things: one distribution, one desktop, one package manager, one init system, one binary
+								format. Nothing to choose or configure before you can start working.
+							</p>
+							<p>
+								And there's the appeal of a new kernel. Vinix is not another distribution on top of
+								Linux, it's a kernel written from scratch and small enough that one person can
+								understand all of it.
+							</p>
+						</div>
+					</article>
+					<article class="faq-item">
+						<h3>Why is Vinix written in V?</h3>
+						<div class="faq-answer">
+							<p>
+								Compilation is very fast. The entire kernel rebuilds in seconds, so changing something,
+								rebuilding, and booting it is one quick step instead of a coffee break. That keeps the
+								whole system enjoyable to work on.
+							</p>
+							<p>
+								<a target=_blank href="https://vlang.io">V</a> is also simple and readable. The language
+								is small enough to learn in an afternoon, the code stays easy to follow months later,
+								and it allows development to move quickly. That matters for an operating system built
+								from scratch.
+							</p>
+						</div>
+					</article>
+					<article class="faq-item">
 						<h3>Is Vinix a Linux distribution?</h3>
 						<div class="faq-answer">
 							<p>
@@ -468,7 +526,7 @@ cd vinix
 							<p>
 								The original kernel core (including its physical and virtual memory managers and scheduler) was written by <a href="https://github.com/mintsuki" target=_blank>mintsuki</a>, the creator of Limine. After a roughly two-year pause in development, <a href="https://github.com/medvednikov" target=_blank>Alexander Medvednikov</a> became its new maintainer. Since then, Vinix got storage, networking, input, graphics, 
 								Unix-style userspace support, and compatibility with Alpine Linux binaries.
-
+							</p>
 							<p>The system image pairs that kernel with an initramfs and a
 								familiar command-line and development userland; native Vinix applications and its desktop
 								are written in V with V UI2.
