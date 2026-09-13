@@ -27,8 +27,9 @@ v -prod -o vinix-website .
 ```
 
 Keep PostgreSQL on persistent storage. The dashboard stores
-the exact UTC timestamp and referrer hostname for each visit; it deliberately
-does not retain IP addresses, user agents, or full referral URLs.
+the exact UTC timestamp, full referrer URL, referrer hostname, and user-agent
+string for each visit. Referral statistics remain grouped by hostname; IP
+addresses are not retained.
 
 ## Deploy
 

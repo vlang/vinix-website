@@ -46,7 +46,7 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="style.css?v=20260909-3" />
+		<link rel="stylesheet" href="style.css?v=20260911-1" />
 	</head>
 	<body>
 		<header class="site-header">
@@ -144,6 +144,27 @@
 						<strong>Alpha software.</strong> Vinix is under active development and is not
 						intended for daily or production use yet.
 					</div>
+					<section class="qemu-run" aria-labelledby="qemu-run-title">
+						<h2 id="qemu-run-title">Run Vinix in QEMU</h2>
+						<p>Install the <a href="https://github.com/vlang/vinix#build-instructions">build prerequisites</a>, then let the launcher build and start the desktop.</p>
+						<div class="qemu-run-options">
+							<article>
+								<h3>Apple Silicon Macs</h3>
+								<p>QEMU uses macOS hardware virtualization for the ARM64 desktop.</p>
+								<pre><code>brew install qemu
+git clone https://github.com/vlang/vinix
+cd vinix
+./run-desktop-aarch64.sh</code></pre>
+							</article>
+							<article>
+								<h3>Other computers</h3>
+								<p>Use the x86_64 launcher. It uses KVM when available, otherwise QEMU emulation.</p>
+								<pre><code>git clone https://github.com/vlang/vinix
+cd vinix
+./run-desktop-amd64.sh</code></pre>
+							</article>
+						</div>
+					</section>
 				</div>
 				<aside class="software-panel" aria-labelledby="software-title">
 					<div class="software-heading">
@@ -176,6 +197,7 @@
 							<span><img src="assets/logos/cmake.svg" alt="" />CMake</span>
 							<span><img src="assets/logos/cmake.svg" alt="" />Meson</span>
 							<span><img src="assets/logos/linux.svg" alt="" />GDB</span>
+							<span><img src="assets/logos/radare2.svg" alt="" />radare2</span>
 							<span><img src="assets/logos/linux.svg" alt="" />strace</span>
 							<span><img src="assets/logos/sqlite.svg" alt="" />SQLite</span>
 							<span><img src="assets/logos/gnubash.svg" alt="" />Bash</span>
@@ -192,6 +214,8 @@
 						<h3>Desktop &amp; applications</h3>
 						<div class="software-list">
 							<span><img src="assets/logos/firefox.svg" alt="" />Firefox ESR</span>
+							<span><img src="assets/logos/blender.svg" alt="" />Blender</span>
+							<span><img src="assets/logos/gimp.svg" alt="" />GIMP</span>
 							<span><img src="assets/logos/wine.svg" alt="" />Wine</span>
 							<span><img src="assets/logos/linux.svg" alt="" />Minecraft / Minetest</span>
 							<span><img src="assets/logos/gnome.svg" alt="" />Gnumeric</span>
@@ -230,6 +254,19 @@
 						<figcaption>Vinix desktop on an M1 MacBook Air.</figcaption>
 					</figure>
 					<figure>
+						<a href="assets/vinix-chromium.png" aria-label="Open the Chromium on Vinix screenshot at full size">
+							<img
+								src="assets/vinix-chromium.png"
+								width="2048"
+								height="1536"
+								loading="lazy"
+								decoding="async"
+								alt="Chromium running on the Vinix desktop"
+							/>
+						</a>
+						<figcaption>Chromium</figcaption>
+					</figure>
+					<figure>
 						<a href="assets/vinix-wine-apps.png" aria-label="Open the Vinix Wine applications screenshot at full size">
 							<img
 								src="assets/vinix-wine-apps.png"
@@ -241,6 +278,32 @@
 							/>
 						</a>
 						<figcaption>Wine apps: Calculator and Notepad.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-ms-office.png" aria-label="Open the Microsoft Office on Vinix screenshot at full size">
+							<img
+								src="assets/vinix-ms-office.png"
+								width="2242"
+								height="1560"
+								loading="lazy"
+								decoding="async"
+								alt="Microsoft Word 2013 running through Wine on the Vinix desktop"
+							/>
+						</a>
+						<figcaption>MS Office on Vinix: an x64 Windows app runs through Wine—an Alpine Linux binary—on ARM64 hardware.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-blender.png" aria-label="Open the Blender on Vinix screenshot at full size">
+							<img
+								src="assets/vinix-blender.png"
+								width="2048"
+								height="1536"
+								loading="lazy"
+								decoding="async"
+								alt="Blender running on the Vinix desktop"
+							/>
+						</a>
+						<figcaption>Blender.</figcaption>
 					</figure>
 					<figure>
 						<a href="assets/vinix-minecraft.png" aria-label="Open the Vinix Minecraft screenshot at full size">
@@ -280,6 +343,32 @@
 							/>
 						</a>
 						<figcaption>Gnumeric on Vinix.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-sublime-text.png" aria-label="Open the Vinix Sublime Text screenshot at full size">
+							<img
+								src="assets/vinix-sublime-text.png"
+								width="2048"
+								height="1536"
+								loading="lazy"
+								decoding="async"
+								alt="Sublime Text editing a VINIX FTW document on the Vinix desktop"
+							/>
+						</a>
+						<figcaption>Sublime Text on Vinix.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-radare2.png" aria-label="Open the radare2 on Vinix screenshot at full size">
+							<img
+								src="assets/vinix-radare2.png"
+								width="1024"
+								height="768"
+								loading="lazy"
+								decoding="async"
+								alt="radare2 disassembling a program on the Vinix desktop"
+							/>
+						</a>
+						<figcaption>radare2</figcaption>
 					</figure>
 					<figure>
 						<a href="assets/vinix-desktop-hero.png" aria-label="Open the Vinix desktop screenshot at full size">
@@ -326,17 +415,26 @@
 						<h3>Stays small</h3>
 						<p>Vinix stays small and minimal. It will not get more bloated with each release.</p>
 					</article>
+					<figure class="hardware-image">
+						<img
+							src="assets/vinix-mac-family-dark.png"
+							width="1448"
+							height="1086"
+							loading="lazy"
+							decoding="async"
+							alt="Apple Mac lineup with MacBook Air, MacBook Pro, iMac, Mac mini, and Mac Studio"
+						/>
+					</figure>
 					<article class="supported-hardware">
 						<h3>Officially supported hardware</h3>
+						<p>Vinix initially is going to support every Apple Silicon Mac (only M1 Macs for now as of Sep 10 2026).</p>
 						<p>
-							Vinix initially is going to support every Apple Silicon Mac (only M1 Macs for now as of Sep 10 2026). 
-							<p/>
-							<p>
-					Support for Intel Macs, back to the 2010 Mac mini, is next. So you can give an older Mac a fast, modern, fully supported OS.
+							Support for Intel Macs, back to the 2010 Mac mini, is next. So you can give an older Mac a fast, modern, fully supported OS.
 						</p>
 						<p>
 							The entire stack is built and tested together. No hunting for drivers or workarounds for sleep, wake, lid closing, hibernation, Wi-Fi, graphics, audio, or the other hardware basics that too often turn a Linux install into a project.
 						</p>
+						<p>You can also already install Vinix on an amd64 machine, but the driver support won't be great. Better to run it in a VM.</p>
 					</article>
 				</div>
 			</section>

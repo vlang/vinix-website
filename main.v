@@ -15,11 +15,13 @@ const visit_cookie_name = 'vinix_session_visit'
 
 @[table: 'visits']
 struct Visit {
-	id         int @[primary; sql: serial]
-	visited_at string
-	referral   string
-	country    string
-	is_bot     bool
+	id           int @[primary; sql: serial]
+	visited_at   string
+	referral     string
+	referral_url string
+	user_agent   string
+	country      string
+	is_bot       bool
 }
 
 struct ReferralCount {
@@ -81,9 +83,12 @@ pub fn (mut app App) stats228(mut ctx Context) veb.Result {
 
 fn (mut app App) record_home_visit(ctx Context, is_bot bool) {
 	now := time.now()
+	referrer := ctx.get_header(.referer) or { '' }
 	visit := Visit{
 		visited_at: now.format_rfc3339()
-		referral: referral_host(ctx.get_header(.referer) or { '' })
+		referral: referral_host(referrer)
+		referral_url: referrer
+		user_agent: ctx.req.header.get(.user_agent) or { '' }
 		country: country_code(ctx.get_custom_header('CF-IPCountry') or { '' })
 		is_bot: is_bot
 	}
@@ -220,7 +225,7 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 	} else {
 		country_table.write_string('<div class="stats-table-wrap"><table><thead><tr><th scope="col">Country</th><th scope="col">Visits</th></tr></thead><tbody>')
 		for index, country in country_rows {
-			if index == 10 {
+			if index == 20 {
 				break
 			}
 			country_table.write_string('<tr><td><span class="country-flag" aria-hidden="true">${country_flag(country.code)}</span><span>${escape_html(country_label(country.code))}</span></td><td>${country.visits}</td></tr>')
@@ -329,8 +334,14 @@ fn escape_html(value string) string {
 
 fn main() {
 	mut db := connect_db() or { panic('Could not open PostgreSQL: ${err}') }
-	db.exec('CREATE TABLE IF NOT EXISTS visits (id BIGSERIAL PRIMARY KEY, visited_at TIMESTAMPTZ NOT NULL, referral TEXT NOT NULL, country TEXT NOT NULL, is_bot BOOLEAN NOT NULL DEFAULT false)') or {
+	db.exec("CREATE TABLE IF NOT EXISTS visits (id BIGSERIAL PRIMARY KEY, visited_at TIMESTAMPTZ NOT NULL, referral TEXT NOT NULL, referral_url TEXT NOT NULL DEFAULT '', user_agent TEXT NOT NULL DEFAULT '', country TEXT NOT NULL, is_bot BOOLEAN NOT NULL DEFAULT false)") or {
 		panic('Could not create the visits table: ${err}')
+	}
+	db.exec("ALTER TABLE visits ADD COLUMN IF NOT EXISTS referral_url TEXT NOT NULL DEFAULT ''") or {
+		panic('Could not add the visits full-referrer column: ${err}')
+	}
+	db.exec("ALTER TABLE visits ADD COLUMN IF NOT EXISTS user_agent TEXT NOT NULL DEFAULT ''") or {
+		panic('Could not add the visits user-agent column: ${err}')
 	}
 	db.exec('CREATE INDEX IF NOT EXISTS visits_visited_at_idx ON visits (visited_at)') or {
 		panic('Could not create the visits timestamp index: ${err}')

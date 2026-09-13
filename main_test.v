@@ -6,6 +6,28 @@ fn test_referral_host_keeps_only_the_hostname() {
 	assert referral_host('') == 'Direct / unknown'
 }
 
+fn test_stats_groups_visits_by_referral_hostname_not_full_url() {
+	app := &App{
+		stats_template: '{{referral_table}}'
+	}
+	visits := [
+		Visit{
+			visited_at: '2026-09-09T18:06:13.123Z'
+			referral: 'news.ycombinator.com'
+			referral_url: 'https://news.ycombinator.com/item?id=1'
+		},
+		Visit{
+			visited_at: '2026-09-09T18:07:13.123Z'
+			referral: 'news.ycombinator.com'
+			referral_url: 'https://news.ycombinator.com/item?id=2'
+		},
+	]
+
+	html := app.render_stats(visits, '2026-09-09')
+	assert html.contains('<td>news.ycombinator.com</td><td>2</td>')
+	assert !html.contains('item?id=')
+}
+
 fn test_escape_html() {
 	assert escape_html('<Vinix & "V">') == '&lt;Vinix &amp; &quot;V&quot;&gt;'
 }

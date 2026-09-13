@@ -34,19 +34,27 @@ else
 fi
 
 referral_expr="COALESCE(NULLIF(referral, ''), 'Direct / unknown')"
+referral_url_expr="''"
 country_expr="'Unknown'"
 bot_expr='0'
+user_agent_expr="''"
 if has_column country; then country_expr="COALESCE(NULLIF(country, ''), 'Unknown')"; fi
 if has_column is_bot; then bot_expr='COALESCE(is_bot, 0)'; fi
+if has_column user_agent; then user_agent_expr="COALESCE(user_agent, '')"; fi
+if has_column referral_url; then referral_url_expr="COALESCE(referral_url, '')"; fi
 
 psql "$conninfo" -v ON_ERROR_STOP=1 -q <<'SQL'
 CREATE TABLE IF NOT EXISTS visits (
 	id BIGSERIAL PRIMARY KEY,
 	visited_at TIMESTAMPTZ NOT NULL,
 	referral TEXT NOT NULL,
+	referral_url TEXT NOT NULL DEFAULT '',
+	user_agent TEXT NOT NULL DEFAULT '',
 	country TEXT NOT NULL,
 	is_bot BOOLEAN NOT NULL DEFAULT false
 );
+ALTER TABLE visits ADD COLUMN IF NOT EXISTS referral_url TEXT NOT NULL DEFAULT '';
+ALTER TABLE visits ADD COLUMN IF NOT EXISTS user_agent TEXT NOT NULL DEFAULT '';
 CREATE INDEX IF NOT EXISTS visits_visited_at_idx ON visits (visited_at);
 SQL
 
@@ -60,8 +68,8 @@ if [[ "$target_count" != "0" ]]; then
 	fail "PostgreSQL has ${target_count} visits but SQLite has ${source_count}. Refusing to duplicate or overwrite data."
 fi
 
-sqlite3 -readonly -csv "$source_db" "SELECT ${timestamp_expr}, ${referral_expr}, ${country_expr}, ${bot_expr} FROM visits ORDER BY id;" |
-	psql "$conninfo" -v ON_ERROR_STOP=1 -q -c '\copy visits (visited_at, referral, country, is_bot) FROM STDIN WITH (FORMAT csv)'
+sqlite3 -readonly -csv "$source_db" "SELECT ${timestamp_expr}, ${referral_expr}, ${referral_url_expr}, ${user_agent_expr}, ${country_expr}, ${bot_expr} FROM visits ORDER BY id;" |
+	psql "$conninfo" -v ON_ERROR_STOP=1 -q -c '\copy visits (visited_at, referral, referral_url, user_agent, country, is_bot) FROM STDIN WITH (FORMAT csv)'
 
 imported_count="$(psql "$conninfo" -v ON_ERROR_STOP=1 -Atqc 'SELECT COUNT(*) FROM visits;')"
 [[ "$imported_count" == "$source_count" ]] || fail "import verification failed: expected ${source_count}, got ${imported_count}"
