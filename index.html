@@ -551,6 +551,28 @@ cd vinix
 						</div>
 					</article>
 					<article class="faq-item">
+						<h3>Does Vinix have a package manager or an app store?</h3>
+						<div class="faq-answer">
+							<p>
+								Yes. Vinix ships with <code>pkg</code>, a command-line package manager that installs
+								software from Alpine Linux’s aarch64 repositories, so there are thousands of existing
+								packages to draw on instead of a small handful ported by hand.
+							</p>
+							<p>
+								<code>pkg update</code> refreshes the indexes, <code>pkg search</code> finds a package,
+								and <code>pkg install</code> pulls it in along with its dependencies. There is also
+								<code>pkg remove</code>, <code>pkg upgrade</code>, <code>pkg list</code>, and
+								<code>pkg info</code>. Package names are Alpine’s own, and Vinix currently tracks Alpine
+								3.21 for aarch64. Chromium, GIMP, Blender, Gnumeric, Sublime Text, GTK, and the usual
+								command-line tools all install this way, though applications that need Linux kernel
+								features Vinix has not implemented yet can still fall short.
+							</p>
+							<p>
+								There is no graphical app store yet. <code>pkg</code> is a terminal tool for now.
+							</p>
+						</div>
+					</article>
+					<article class="faq-item">
 						<h3>What desktop environment and window manager does Vinix use?</h3>
 						<div class="faq-answer">
 							<p>
