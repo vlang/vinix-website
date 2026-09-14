@@ -11,6 +11,12 @@ import veb
 
 const default_port = 8080
 const stats_days_to_show = 30
+const stats_referrals_to_show = 10
+const stats_referral_urls_to_show = 30
+const stats_countries_to_show = 20
+// Referrers can carry long tracking query strings, so only the leading part is
+// rendered; the anchor still links to, and its tooltip still shows, the full URL.
+const stats_referral_url_max_len = 90
 const visit_cookie_name = 'vinix_session_visit'
 
 @[table: 'visits']
@@ -122,6 +128,7 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 
 	mut daily_visits := map[string]int{}
 	mut referrals := map[string]int{}
+	mut referral_urls := map[string]int{}
 	mut countries := map[string]int{}
 	mut hourly_visits := []int{len: 24}
 	mut selected_day_humans := 0
@@ -130,6 +137,11 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 		recorded_day := visit_day(visit.visited_at)
 		daily_visits[recorded_day]++
 		referrals[visit.referral]++
+		// Direct visits have no URL to report, and visits recorded before the
+		// column existed have none either.
+		if visit.referral_url != '' {
+			referral_urls[visit.referral_url]++
+		}
 		countries[visit.country]++
 		if recorded_day == selected_day {
 			selected_day_humans++
@@ -187,27 +199,38 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 		hourly_chart.write_string('<li class="stats-chart-day" title="${selected_day} ${label}:00 UTC: ${count} human visit${plural_suffix(count)}"><span class="stats-chart-bar" style="height: ${height}%"><span class="stats-chart-tooltip">${label}:00 UTC: ${count} human visit${plural_suffix(count)}</span></span><span class="stats-chart-label">${label}</span></li>')
 	}
 
-	mut referral_rows := []ReferralCount{}
-	for name, count in referrals {
-		referral_rows << ReferralCount{
-			name: name
-			visits: count
-		}
-	}
-	referral_rows.sort(a.visits > b.visits)
-
+	referral_rows := ranked_counts(referrals)
 	mut referral_table := strings.new_builder(2048)
 	if referral_rows.len == 0 {
 		referral_table.write_string('<p class="stats-empty">No visits have been recorded yet.</p>')
 	} else {
 		referral_table.write_string('<div class="stats-table-wrap"><table><thead><tr><th scope="col">Referral</th><th scope="col">Visits</th></tr></thead><tbody>')
 		for index, referral in referral_rows {
-			if index == 10 {
+			if index == stats_referrals_to_show {
 				break
 			}
 			referral_table.write_string('<tr><td>${escape_html(referral.name)}</td><td>${referral.visits}</td></tr>')
 		}
 		referral_table.write_string('</tbody></table></div>')
+	}
+
+	referral_url_rows := ranked_counts(referral_urls)
+	mut referral_url_table := strings.new_builder(4096)
+	if referral_url_rows.len == 0 {
+		referral_url_table.write_string('<p class="stats-empty">No referrer URLs have been recorded yet.</p>')
+	} else {
+		referral_url_table.write_string('<div class="stats-table-wrap"><table><thead><tr><th scope="col">#</th><th scope="col">Referrer URL</th><th scope="col">Visits</th></tr></thead><tbody>')
+		for index, referral in referral_url_rows {
+			if index == stats_referral_urls_to_show {
+				break
+			}
+			url := escape_html(referral.name)
+			label := escape_html(truncate(referral.name, stats_referral_url_max_len))
+			// nofollow keeps referrer spam from earning a link from this page,
+			// and noreferrer avoids announcing the stats page to the target.
+			referral_url_table.write_string('<tr><td class="stats-rank">${index + 1}</td><td class="stats-referral-url"><a href="${url}" title="${url}" rel="nofollow noreferrer noopener" target="_blank">${label}</a></td><td>${referral.visits}</td></tr>')
+		}
+		referral_url_table.write_string('</tbody></table></div>')
 	}
 
 	mut country_rows := []CountryCount{}
@@ -225,7 +248,7 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 	} else {
 		country_table.write_string('<div class="stats-table-wrap"><table><thead><tr><th scope="col">Country</th><th scope="col">Visits</th></tr></thead><tbody>')
 		for index, country in country_rows {
-			if index == 20 {
+			if index == stats_countries_to_show {
 				break
 			}
 			country_table.write_string('<tr><td><span class="country-flag" aria-hidden="true">${country_flag(country.code)}</span><span>${escape_html(country_label(country.code))}</span></td><td>${country.visits}</td></tr>')
@@ -233,7 +256,27 @@ fn (app &App) render_stats(visits []Visit, selected_day string) string {
 		country_table.write_string('</tbody></table></div>')
 	}
 
-	return app.stats_template.replace('{{total_visits}}', human_visits.len.str()).replace('{{visits_last_30_days}}', total_last_30_days.str()).replace('{{total_bot_visits}}', bot_visits.len.str()).replace('{{bot_visits_last_30_days}}', bots_last_30_days.str()).replace('{{daily_chart}}', chart.str()).replace('{{selected_day}}', selected_day).replace('{{selected_day_human_visits}}', selected_day_humans.str()).replace('{{selected_day_bot_visits}}', selected_day_bots.str()).replace('{{hourly_chart}}', hourly_chart.str()).replace('{{referral_table}}', referral_table.str()).replace('{{country_table}}', country_table.str())
+	return app.stats_template.replace('{{total_visits}}', human_visits.len.str()).replace('{{visits_last_30_days}}', total_last_30_days.str()).replace('{{total_bot_visits}}', bot_visits.len.str()).replace('{{bot_visits_last_30_days}}', bots_last_30_days.str()).replace('{{daily_chart}}', chart.str()).replace('{{selected_day}}', selected_day).replace('{{selected_day_human_visits}}', selected_day_humans.str()).replace('{{selected_day_bot_visits}}', selected_day_bots.str()).replace('{{hourly_chart}}', hourly_chart.str()).replace('{{referral_table}}', referral_table.str()).replace('{{referral_url_table}}', referral_url_table.str()).replace('{{country_table}}', country_table.str())
+}
+
+// ranked_counts turns a tally into rows ordered from most to least visited.
+fn ranked_counts(counts map[string]int) []ReferralCount {
+	mut rows := []ReferralCount{cap: counts.len}
+	for name, count in counts {
+		rows << ReferralCount{
+			name: name
+			visits: count
+		}
+	}
+	rows.sort(a.visits > b.visits)
+	return rows
+}
+
+// Counted in runes so a percent-decoded or IDN referrer is never cut in the
+// middle of a multi-byte character.
+fn truncate(value string, max_len int) string {
+	runes := value.runes()
+	return if runes.len <= max_len { value } else { runes[..max_len].string() + '…' }
 }
 
 fn day_key(value time.Time) string {

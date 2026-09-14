@@ -72,3 +72,112 @@ fn test_requested_stats_day_reads_the_day_query_parameter() {
 	assert requested_stats_day('/stats228?day=2026-09-09') == '2026-09-09'
 	assert requested_stats_day('/stats228') == ''
 }
+
+fn test_stats_lists_full_referrer_urls_separately_from_hostnames() {
+	app := &App{
+		stats_template: '{{referral_url_table}}'
+	}
+	visits := [
+		Visit{
+			visited_at: '2026-09-09T18:06:13.123Z'
+			referral: 'news.ycombinator.com'
+			referral_url: 'https://news.ycombinator.com/item?id=1'
+		},
+		Visit{
+			visited_at: '2026-09-09T18:07:13.123Z'
+			referral: 'news.ycombinator.com'
+			referral_url: 'https://news.ycombinator.com/item?id=1'
+		},
+		Visit{
+			visited_at: '2026-09-09T18:08:13.123Z'
+			referral: 'news.ycombinator.com'
+			referral_url: 'https://news.ycombinator.com/item?id=2'
+		},
+	]
+
+	html := app.render_stats(visits, '2026-09-09')
+	assert html.contains('https://news.ycombinator.com/item?id=1')
+	assert html.contains('https://news.ycombinator.com/item?id=2')
+	// The busiest URL ranks first.
+	assert html.index('item?id=1') or { -1 } < html.index('item?id=2') or { -1 }
+	assert html.contains('rel="nofollow noreferrer noopener"')
+}
+
+fn test_stats_referrer_url_table_omits_visits_without_a_referrer() {
+	app := &App{
+		stats_template: '{{referral_url_table}}'
+	}
+	visits := [
+		Visit{
+			visited_at: '2026-09-09T18:06:13.123Z'
+			referral: 'Direct / unknown'
+			referral_url: ''
+		},
+	]
+
+	html := app.render_stats(visits, '2026-09-09')
+	assert html.contains('No referrer URLs have been recorded yet.')
+}
+
+fn test_stats_referrer_url_table_stops_at_thirty_rows() {
+	app := &App{
+		stats_template: '{{referral_url_table}}'
+	}
+	mut visits := []Visit{}
+	// 40 distinct URLs, each with a visit count that makes its rank predictable.
+	for index in 0 .. 40 {
+		for _ in 0 .. 40 - index {
+			visits << Visit{
+				visited_at: '2026-09-09T18:06:13.123Z'
+				referral: 'example.com'
+				referral_url: 'https://example.com/page-${index}'
+			}
+		}
+	}
+
+	html := app.render_stats(visits, '2026-09-09')
+	assert html.count('<tr><td class="stats-rank">') == stats_referral_urls_to_show
+	assert html.contains('/page-29')
+	assert !html.contains('/page-30')
+}
+
+fn test_stats_referrer_url_table_escapes_and_shortens_long_urls() {
+	app := &App{
+		stats_template: '{{referral_url_table}}'
+	}
+	long_url := 'https://example.com/?q=' + 'a'.repeat(200) + '&x="><script>'
+	visits := [
+		Visit{
+			visited_at: '2026-09-09T18:06:13.123Z'
+			referral: 'example.com'
+			referral_url: long_url
+		},
+	]
+
+	html := app.render_stats(visits, '2026-09-09')
+	assert !html.contains('<script>')
+	assert html.contains('&lt;script&gt;')
+	// The href keeps the whole URL while the visible label is shortened.
+	assert html.contains('&amp;x=&quot;&gt;&lt;script&gt;"')
+	assert html.contains('…')
+}
+
+fn test_truncate_counts_runes_not_bytes() {
+	assert truncate('vinix', 5) == 'vinix'
+	assert truncate('vinix', 3) == 'vin…'
+	// Cyrillic is two bytes per rune, so a byte-based cut would corrupt it.
+	assert truncate('привет', 3) == 'при…'
+}
+
+fn test_ranked_counts_orders_by_visits() {
+	rows := ranked_counts({
+		'a': 1
+		'b': 5
+		'c': 3
+	})
+	assert rows.len == 3
+	assert rows[0].name == 'b'
+	assert rows[0].visits == 5
+	assert rows[1].name == 'c'
+	assert rows[2].name == 'a'
+}

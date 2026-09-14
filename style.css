@@ -1329,6 +1329,33 @@ footer p {
 	color: var(--muted);
 }
 
+.stats-section td.stats-rank {
+	width: 1%;
+	padding-right: 0;
+	color: var(--muted);
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Referrer URLs are long and arbitrary, so let them wrap rather than stretch
+   the table into a horizontal scroll. */
+.stats-section td.stats-referral-url {
+	max-width: 0;
+	word-break: break-all;
+}
+
+.stats-section td.stats-referral-url a {
+	color: inherit;
+	text-decoration: none;
+	border-bottom: 1px solid var(--line);
+}
+
+.stats-section td.stats-referral-url a:hover,
+.stats-section td.stats-referral-url a:focus-visible {
+	color: var(--status-color);
+	border-bottom-color: currentColor;
+}
+
 .country-flag {
 	display: inline-block;
 	width: 1.9rem;

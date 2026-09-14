@@ -36,7 +36,7 @@
 			<div class="stats-heading">
 				<p class="eyebrow">Site analytics</p>
 				<h1>Vinix traffic</h1>
-				<p>Human visits are recorded once per browser session with their user-agent string, full referrer URL, and referrer hostname. The referral table remains grouped by hostname; IP addresses are not stored. Detected bots are reported separately.</p>
+				<p>Human visits are recorded once per browser session with their user-agent string, full referrer URL, and referrer hostname. Referrals are listed both grouped by hostname and as full URLs; IP addresses are not stored. Detected bots are reported separately.</p>
 			</div>
 			<section class="stats-summary" aria-label="Traffic summary">
 				<article><span>Human visits</span><strong>{{total_visits}}</strong></article>
@@ -63,6 +63,10 @@
 			<section class="stats-section" aria-labelledby="referrals-title">
 				<div class="stats-section-heading"><p class="eyebrow" id="referrals-title">Top human referrals</p><span>All time</span></div>
 				{{referral_table}}
+			</section>
+			<section class="stats-section" aria-labelledby="referral-urls-title">
+				<div class="stats-section-heading"><p class="eyebrow" id="referral-urls-title">Top human referrer URLs</p><span>Top 30 · all time</span></div>
+				{{referral_url_table}}
 			</section>
 			<section class="stats-section" aria-labelledby="countries-title">
 				<div class="stats-section-heading"><p class="eyebrow" id="countries-title">Top human countries</p><span>All time</span></div>
