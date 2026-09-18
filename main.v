@@ -1,46 +1,13 @@
 module main
 
-import db.pg
-import medvednikov.botdetect
 import net.http
-import net.urllib
 import os
-import strings
-import time
+import sync
+import traffic
 import veb
 
 const default_port = 8080
-const stats_days_to_show = 30
-const stats_referrals_to_show = 10
-const stats_referral_urls_to_show = 30
-const stats_countries_to_show = 20
-// Referrers can carry long tracking query strings, so only the leading part is
-// rendered; the anchor still links to, and its tooltip still shows, the full URL.
-const stats_referral_url_max_len = 90
 const visit_cookie_name = 'vinix_session_visit'
-
-@[table: 'visits']
-struct Visit {
-	id           int @[primary; sql: serial]
-	visited_at   string
-	referral     string
-	referral_url string
-	user_agent   string
-	country      string
-	is_bot       bool
-}
-
-struct ReferralCount {
-	name   string
-	visits int
-}
-
-struct CountryCount {
-	code   string
-	visits int
-}
-
-type VinixDb = pg.DB
 
 pub struct Context {
 	veb.Context
@@ -49,24 +16,26 @@ pub struct Context {
 pub struct App {
 	veb.StaticHandler
 mut:
-	db             VinixDb
-	home_html      string
-	stats_template string
+	traffic      &traffic.Tracker
+	stats_traffic &traffic.Tracker
+	traffic_lock sync.Mutex
+	home_html    string
 }
 
 @['/'; get]
 pub fn (mut app App) index(mut ctx Context) veb.Result {
-	if is_bot_visit(ctx.req.header.get(.user_agent) or { '' }, ctx.req.url) {
-		// Crawlers do not reliably retain cookies, so keep every bot request as
-		// a separate event while ensuring it never inflates human statistics.
-		app.record_home_visit(ctx, true)
+	user_agent := ctx.req.header.get(.user_agent) or { '' }
+	if traffic.is_bot_request(user_agent, ctx.req.url) {
+		// Crawlers do not reliably retain cookies, so preserve each event while
+		// the tracker keeps it out of the human totals.
+		app.record_home_visit(ctx)
 		return ctx.html(app.home_html)
 	}
 
 	// Count at most once per browser session so reloading the home page does
 	// not inflate the visit total. This cookie is not stored in the database.
 	if ctx.get_cookie(visit_cookie_name) == none {
-		app.record_home_visit(ctx, false)
+		app.record_home_visit(ctx)
 		ctx.set_cookie(http.Cookie{
 			name: visit_cookie_name
 			value: '1'
@@ -81,319 +50,53 @@ pub fn (mut app App) index(mut ctx Context) veb.Result {
 
 @['/stats228']
 pub fn (mut app App) stats228(mut ctx Context) veb.Result {
-	visits := app.visits()
-	requested_day := requested_stats_day(ctx.req.url)
-	selected_day := if is_day_key(requested_day) { requested_day } else { day_key(time.now()) }
-	return ctx.html(app.render_stats(visits, selected_day))
+	return ctx.html(app.stats_traffic.stats_html(ctx.req.url, traffic.PageConfig{
+		site_name: 'Vinix'
+		page_title: 'Vinix traffic statistics'
+		home_url: '/'
+		stats_path: '/stats228'
+	}))
 }
 
-fn (mut app App) record_home_visit(ctx Context, is_bot bool) {
-	now := time.now()
-	referrer := ctx.get_header(.referer) or { '' }
-	visit := Visit{
-		visited_at: now.format_rfc3339()
-		referral: referral_host(referrer)
-		referral_url: referrer
-		user_agent: ctx.req.header.get(.user_agent) or { '' }
-		country: country_code(ctx.get_custom_header('CF-IPCountry') or { '' })
-		is_bot: is_bot
+fn (mut app App) record_home_visit(ctx Context) {
+	// Veb serves requests concurrently, while the tracker holds one PostgreSQL
+	// connection. pg.DB does not permit concurrent queries on that connection.
+	// Telemetry must never delay page delivery, so skip an event while another
+	// request is writing rather than queueing request workers behind the database.
+	if !app.traffic_lock.try_lock() {
+		return
 	}
-
-	sql app.db {
-		insert visit into Visit
-	} or {
+	defer {
+		app.traffic_lock.unlock()
+	}
+	app.traffic.record(traffic.Request{
+		url: ctx.req.url
+		referer: ctx.get_header(.referer) or { '' }
+		user_agent: ctx.req.header.get(.user_agent) or { '' }
+		country: ctx.get_custom_header('CF-IPCountry') or { '' }
+	}) or {
 		eprintln('Could not record page visit: ${err}')
 	}
 }
 
-fn (mut app App) visits() []Visit {
-	return sql app.db {
-		select from Visit
-	} or {
-		eprintln('Could not load visitor statistics: ${err}')
-		return []Visit{}
-	}
-}
-
-fn (app &App) render_stats(visits []Visit, selected_day string) string {
-	mut human_visits := []Visit{}
-	mut bot_visits := []Visit{}
-	for visit in visits {
-		if visit.is_bot {
-			bot_visits << visit
-		} else {
-			human_visits << visit
-		}
-	}
-
-	mut daily_visits := map[string]int{}
-	mut referrals := map[string]int{}
-	mut referral_urls := map[string]int{}
-	mut countries := map[string]int{}
-	mut hourly_visits := []int{len: 24}
-	mut selected_day_humans := 0
-	mut selected_day_bots := 0
-	for visit in human_visits {
-		recorded_day := visit_day(visit.visited_at)
-		daily_visits[recorded_day]++
-		referrals[visit.referral]++
-		// Direct visits have no URL to report, and visits recorded before the
-		// column existed have none either.
-		if visit.referral_url != '' {
-			referral_urls[visit.referral_url]++
-		}
-		countries[visit.country]++
-		if recorded_day == selected_day {
-			selected_day_humans++
-			hour := visit_hour(visit.visited_at)
-			if hour >= 0 {
-				hourly_visits[hour]++
-			}
-		}
-	}
-	for visit in bot_visits {
-		if visit_day(visit.visited_at) == selected_day {
-			selected_day_bots++
-		}
-	}
-
-	mut chart := strings.new_builder(4096)
-	mut total_last_30_days := 0
-	mut bots_last_30_days := 0
-	mut highest_day := 1
-	now := time.now()
-	for offset in 0 .. stats_days_to_show {
-		day := day_key(now.add_days(offset - stats_days_to_show + 1))
-		count := daily_visits[day]
-		total_last_30_days += count
-		if count > highest_day {
-			highest_day = count
-		}
-	}
-	for visit in bot_visits {
-		if visit_day(visit.visited_at) >= day_key(now.add_days(-stats_days_to_show + 1)) {
-			bots_last_30_days++
-		}
-	}
-
-	for offset in 0 .. stats_days_to_show {
-		day := day_key(now.add_days(offset - stats_days_to_show + 1))
-		count := daily_visits[day]
-		height := count * 100 / highest_day
-		label := day[5..]
-		active_class := if day == selected_day { ' is-selected' } else { '' }
-		chart.write_string('<li class="stats-chart-day${active_class}"><a href="/stats228?day=${day}#hourly-visits" title="${day}: ${count} visit${plural_suffix(count)}" aria-label="Show ${day} by hour"><span class="stats-chart-bar" style="height: ${height}%"><span class="stats-chart-tooltip">${day}: ${count} visit${plural_suffix(count)}</span></span><span class="stats-chart-label">${label}</span></a></li>')
-	}
-
-	mut highest_hour := 1
-	for count in hourly_visits {
-		if count > highest_hour {
-			highest_hour = count
-		}
-	}
-	mut hourly_chart := strings.new_builder(4096)
-	for hour in 0 .. 24 {
-		count := hourly_visits[hour]
-		height := count * 100 / highest_hour
-		label := if hour < 10 { '0${hour}' } else { hour.str() }
-		hourly_chart.write_string('<li class="stats-chart-day" title="${selected_day} ${label}:00 UTC: ${count} human visit${plural_suffix(count)}"><span class="stats-chart-bar" style="height: ${height}%"><span class="stats-chart-tooltip">${label}:00 UTC: ${count} human visit${plural_suffix(count)}</span></span><span class="stats-chart-label">${label}</span></li>')
-	}
-
-	referral_rows := ranked_counts(referrals)
-	mut referral_table := strings.new_builder(2048)
-	if referral_rows.len == 0 {
-		referral_table.write_string('<p class="stats-empty">No visits have been recorded yet.</p>')
-	} else {
-		referral_table.write_string('<div class="stats-table-wrap"><table><thead><tr><th scope="col">Referral</th><th scope="col">Visits</th></tr></thead><tbody>')
-		for index, referral in referral_rows {
-			if index == stats_referrals_to_show {
-				break
-			}
-			referral_table.write_string('<tr><td>${escape_html(referral.name)}</td><td>${referral.visits}</td></tr>')
-		}
-		referral_table.write_string('</tbody></table></div>')
-	}
-
-	referral_url_rows := ranked_counts(referral_urls)
-	mut referral_url_table := strings.new_builder(4096)
-	if referral_url_rows.len == 0 {
-		referral_url_table.write_string('<p class="stats-empty">No referrer URLs have been recorded yet.</p>')
-	} else {
-		referral_url_table.write_string('<div class="stats-table-wrap"><table><thead><tr><th scope="col">#</th><th scope="col">Referrer URL</th><th scope="col">Visits</th></tr></thead><tbody>')
-		for index, referral in referral_url_rows {
-			if index == stats_referral_urls_to_show {
-				break
-			}
-			url := escape_html(referral.name)
-			label := escape_html(truncate(referral.name, stats_referral_url_max_len))
-			// nofollow keeps referrer spam from earning a link from this page,
-			// and noreferrer avoids announcing the stats page to the target.
-			referral_url_table.write_string('<tr><td class="stats-rank">${index + 1}</td><td class="stats-referral-url"><a href="${url}" title="${url}" rel="nofollow noreferrer noopener" target="_blank">${label}</a></td><td>${referral.visits}</td></tr>')
-		}
-		referral_url_table.write_string('</tbody></table></div>')
-	}
-
-	mut country_rows := []CountryCount{}
-	for code, count in countries {
-		country_rows << CountryCount{
-			code: code
-			visits: count
-		}
-	}
-	country_rows.sort(a.visits > b.visits)
-
-	mut country_table := strings.new_builder(2048)
-	if country_rows.len == 0 {
-		country_table.write_string('<p class="stats-empty">No visits have been recorded yet.</p>')
-	} else {
-		country_table.write_string('<div class="stats-table-wrap"><table><thead><tr><th scope="col">Country</th><th scope="col">Visits</th></tr></thead><tbody>')
-		for index, country in country_rows {
-			if index == stats_countries_to_show {
-				break
-			}
-			country_table.write_string('<tr><td><span class="country-flag" aria-hidden="true">${country_flag(country.code)}</span><span>${escape_html(country_label(country.code))}</span></td><td>${country.visits}</td></tr>')
-		}
-		country_table.write_string('</tbody></table></div>')
-	}
-
-	return app.stats_template.replace('{{total_visits}}', human_visits.len.str()).replace('{{visits_last_30_days}}', total_last_30_days.str()).replace('{{total_bot_visits}}', bot_visits.len.str()).replace('{{bot_visits_last_30_days}}', bots_last_30_days.str()).replace('{{daily_chart}}', chart.str()).replace('{{selected_day}}', selected_day).replace('{{selected_day_human_visits}}', selected_day_humans.str()).replace('{{selected_day_bot_visits}}', selected_day_bots.str()).replace('{{hourly_chart}}', hourly_chart.str()).replace('{{referral_table}}', referral_table.str()).replace('{{referral_url_table}}', referral_url_table.str()).replace('{{country_table}}', country_table.str())
-}
-
-// ranked_counts turns a tally into rows ordered from most to least visited.
-fn ranked_counts(counts map[string]int) []ReferralCount {
-	mut rows := []ReferralCount{cap: counts.len}
-	for name, count in counts {
-		rows << ReferralCount{
-			name: name
-			visits: count
-		}
-	}
-	rows.sort(a.visits > b.visits)
-	return rows
-}
-
-// Counted in runes so a percent-decoded or IDN referrer is never cut in the
-// middle of a multi-byte character.
-fn truncate(value string, max_len int) string {
-	runes := value.runes()
-	return if runes.len <= max_len { value } else { runes[..max_len].string() + '…' }
-}
-
-fn day_key(value time.Time) string {
-	return value.format_rfc3339()[..10]
-}
-
-fn visit_day(visited_at string) string {
-	return if visited_at.len >= 10 { visited_at[..10] } else { '' }
-}
-
-fn visit_hour(visited_at string) int {
-	if visited_at.len < 13 || (visited_at[10] != `T` && visited_at[10] != ` `) || visited_at[11] < `0`
-		|| visited_at[11] > `9` || visited_at[12] < `0` || visited_at[12] > `9` {
-		return -1
-	}
-	hour := int(visited_at[11] - `0`) * 10 + int(visited_at[12] - `0`)
-	return if hour < 24 { hour } else { -1 }
-}
-
-fn is_day_key(value string) bool {
-	if value.len != 10 || value[4] != `-` || value[7] != `-` {
-		return false
-	}
-	for index in [0, 1, 2, 3, 5, 6, 8, 9] {
-		if value[index] < `0` || value[index] > `9` {
-			return false
-		}
-	}
-	return true
-}
-
-fn requested_stats_day(url string) string {
-	parsed_url := urllib.parse(url) or { return '' }
-	return parsed_url.query().get('day') or { '' }
-}
-
-fn referral_host(referer string) string {
-	if referer == '' {
-		return 'Direct / unknown'
-	}
-	url := urllib.parse(referer) or {
-		return 'Direct / unknown'
-	}
-	host := url.hostname().to_lower()
-	return if host == '' { 'Direct / unknown' } else { host }
-}
-
-fn country_code(value string) string {
-	code := value.trim_space().to_upper_ascii()
-	if code.len != 2 || code == 'XX' {
-		return 'Unknown'
-	}
-	if code[0] < `A` || code[0] > `Z` || code[1] < `A` || code[1] > `Z` {
-		return 'Unknown'
-	}
-	return code
-}
-
-fn is_bot_visit(user_agent string, url string) bool {
-	return botdetect.ua_is_bot(user_agent) || botdetect.url_is_requested_by_bot(url)
-}
-
-fn country_flag(code string) string {
-	if code.len != 2 || code == 'Unknown' {
-		return '🏳️'
-	}
-	return rune(0x1f1e6 + int(code[0] - `A`)).str() + rune(0x1f1e6 + int(code[1] - `A`)).str()
-}
-
-fn country_label(code string) string {
-	return match code {
-		'US' { 'United States' }
-		'RU' { 'Russia' }
-		'GB' { 'United Kingdom' }
-		'DE' { 'Germany' }
-		'FR' { 'France' }
-		'CA' { 'Canada' }
-		'NL' { 'Netherlands' }
-		'PL' { 'Poland' }
-		'UA' { 'Ukraine' }
-		'CN' { 'China' }
-		'JP' { 'Japan' }
-		'IN' { 'India' }
-		'BR' { 'Brazil' }
-		'AU' { 'Australia' }
-		'Unknown' { 'Unknown' }
-		else { code }
-	}
-}
-
-fn plural_suffix(count int) string {
-	return if count == 1 { '' } else { 's' }
-}
-
-fn escape_html(value string) string {
-	return value.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", '&#39;')
-}
-
 fn main() {
-	mut db := connect_db() or { panic('Could not open PostgreSQL: ${err}') }
-	db.exec("CREATE TABLE IF NOT EXISTS visits (id BIGSERIAL PRIMARY KEY, visited_at TIMESTAMPTZ NOT NULL, referral TEXT NOT NULL, referral_url TEXT NOT NULL DEFAULT '', user_agent TEXT NOT NULL DEFAULT '', country TEXT NOT NULL, is_bot BOOLEAN NOT NULL DEFAULT false)") or {
-		panic('Could not create the visits table: ${err}')
+	conninfo := os.getenv('VINIX_DB_CONNINFO')
+	mut tracker := traffic.new(traffic.Config{
+		conninfo: conninfo
+		site_id: 'vinix'
+	}) or {
+		panic('Could not initialise traffic tracking: ${err}')
 	}
-	db.exec("ALTER TABLE visits ADD COLUMN IF NOT EXISTS referral_url TEXT NOT NULL DEFAULT ''") or {
-		panic('Could not add the visits full-referrer column: ${err}')
+	mut stats_tracker := traffic.new(traffic.Config{
+		conninfo: conninfo
+		site_id: 'vinix'
+	}) or {
+		panic('Could not initialise traffic statistics: ${err}')
 	}
-	db.exec("ALTER TABLE visits ADD COLUMN IF NOT EXISTS user_agent TEXT NOT NULL DEFAULT ''") or {
-		panic('Could not add the visits user-agent column: ${err}')
-	}
-	db.exec('CREATE INDEX IF NOT EXISTS visits_visited_at_idx ON visits (visited_at)') or {
-		panic('Could not create the visits timestamp index: ${err}')
-	}
-
 	mut app := &App{
-		db: db
-		home_html: os.read_file('index.html') or { panic('Could not load index.html: ${err}') }
-		stats_template: os.read_file('stats228.html') or { panic('Could not load stats228.html: ${err}') }
+		traffic:       tracker
+		stats_traffic: stats_tracker
+		home_html:     os.read_file('index.html') or { panic('Could not load index.html: ${err}') }
 	}
 	app.handle_static('assets', false) or { panic(err) }
 	app.serve_static('/style.css', 'style.css') or { panic(err) }
@@ -406,13 +109,4 @@ fn main() {
 	veb.run_at[App, Context](mut app, host: '127.0.0.1', port: port.int(), family: .ip) or {
 		panic(err)
 	}
-}
-
-fn connect_db() !VinixDb {
-	conninfo := os.getenv('VINIX_DB_CONNINFO')
-	if conninfo == '' {
-		return error('VINIX_DB_CONNINFO must contain the PostgreSQL connection string')
-	}
-	db := pg.connect_with_conninfo(conninfo, pg.PoolConfig{})!
-	return VinixDb(*db)
 }

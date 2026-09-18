@@ -2,10 +2,13 @@
 
 The Vinix website is a V + Veb server backed by PostgreSQL. It serves the existing
 home page at `/`, records one visit per browser session, and exposes traffic
-statistics at `/stats228`. Country totals use Cloudflare's two-letter country
-header when the site is served through Cloudflare; no IP addresses are stored.
-Known crawler user agents and bot probe URLs are classified with
-`medvednikov.botdetect` and reported separately from human traffic.
+statistics at `/stats228`. The traffic database, collection logic, and complete
+statistics page live in the reusable sibling [`../traffic`](../traffic) module.
+Vinix uses the `vinix` traffic namespace, so other sites may share the database
+without mixing reports. Country totals use Cloudflare's two-letter country header
+when the site is served through Cloudflare; no IP addresses are stored. Known
+crawler user agents and bot probe URLs are classified and reported separately
+from human traffic.
 
 ## Run locally
 
@@ -13,7 +16,7 @@ Install V and the PostgreSQL client development library (`libpq-dev` on Debian/
 Ubuntu or `brew install libpq` on macOS), then run:
 
 ```sh
-v run .
+v -path "$(dirname "$PWD")|@vlib|@vmodules" run .
 ```
 
 The site listens on `http://localhost:8080`. Set `PORT` to choose another port
@@ -23,13 +26,17 @@ and `VINIX_DB_CONNINFO` to a PostgreSQL libpq connection string, for example
 Build an optimized binary for production with:
 
 ```sh
-v -prod -o vinix-website .
+v -path "$(dirname "$PWD")|@vlib|@vmodules" -prod -o vinix-website .
 ```
 
 Keep PostgreSQL on persistent storage. The dashboard stores
 the exact UTC timestamp, full referrer URL, referrer hostname, and user-agent
 string for each visit. Referral statistics remain grouped by hostname; IP
 addresses are not retained.
+
+The module is expected at `../traffic` by default. Set `TRAFFIC_MODULE_DIR` to
+use another checkout; its [README](../traffic/README.md) documents integration
+for other V sites.
 
 ## Deploy
 
@@ -53,3 +60,7 @@ The script checks the SSH connection before uploading and defaults to a
 15-second connection timeout. If the server uses password authentication, pass
 `DEPLOY_SSH_BATCH_MODE=no`; otherwise it fails promptly rather than waiting for
 an authentication prompt.
+
+The deploy script embeds the dashboard assets from `../traffic` during the
+local build, so the remote host does not need a second checkout. Override that
+location with `TRAFFIC_MODULE_DIR` when needed.

@@ -46,7 +46,7 @@
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="stylesheet" href="style.css?v=20260914-1" />
+		<link rel="stylesheet" href="style.css?v=20260918-1" />
 	</head>
 	<body>
 		<header class="site-header">
@@ -63,7 +63,6 @@
 			<div class="header-actions">
 				<nav aria-label="Main navigation">
 					<a href="#features">Features</a>
-					<a href="#about">About</a>
 					<a href="#faq">FAQ</a>
 					<a href="#roadmap">Roadmap</a>
 					<a href="#sponsor">Sponsor development</a>
@@ -429,7 +428,8 @@ cd vinix
 								Nothing runs that you did not start. There is no systemd, no background indexer, and
 								nothing phoning home. The desktop draws straight to the framebuffer and composites its
 								own windows, with no display server underneath it, and the machine feels the same on
-								day ninety as it did on day one.
+								day ninety as it did on day one. It stays that way across releases too: Vinix is not
+								going to get more bloated with each one.
 							</p>
 						</div>
 					</article>
@@ -609,58 +609,74 @@ cd vinix
 							</p>
 						</div>
 					</article>
+					<article class="feature">
+						<figure class="feature-figure feature-figure-photo">
+							<img
+								src="assets/vinix-mac-family-dark.png"
+								width="1448"
+								height="1086"
+								loading="lazy"
+								decoding="async"
+								alt="Apple Mac lineup with MacBook Air, MacBook Pro, iMac, Mac mini, and Mac Studio"
+							/>
+						</figure>
+						<div class="feature-copy">
+							<h3>Officially supported hardware</h3>
+							<p>Vinix initially is going to support every Apple Silicon Mac (only M1 Macs for now as of Sep 10 2026).</p>
+							<p>
+								Support for Intel Macs, back to the 2010 Mac mini, is next. So you can give an older Mac a fast, modern, fully supported OS.
+							</p>
+							<p>
+								The entire stack is built and tested together. No hunting for drivers or workarounds for sleep, wake, lid closing, hibernation, Wi-Fi, graphics, audio, or the other hardware basics that too often turn a Linux install into a project.
+							</p>
+							<p>You can also already install Vinix on an amd64 machine, but the driver support won't be great. Better to run it in a VM.</p>
+						</div>
+					</article>
 				</div>
-			</section>
-
-			<section class="section" id="about" aria-label="What Vinix is about">
-				<div class="section-heading">
-					<p class="eyebrow">What Vinix is about</p>
-				</div>
-				<div class="principles">
-					<article>
-						<h3>Use the screen well</h3>
-						<p>No extra padding or rounded corners. More room for your work.</p>
+				<div class="feature-list feature-list-principles">
+					<article class="feature feature-principle">
+						<figure class="feature-figure principle-figure" aria-hidden="true">
+							<div class="screen-layout-illustration">
+								<span></span><span></span><span></span><span></span>
+							</div>
+						</figure>
+						<div class="feature-copy">
+							<h3>Use the screen well</h3>
+							<p>No extra padding or rounded corners. More room for your work.</p>
+						</div>
 					</article>
-					<article>
-						<h3>One way to do things</h3>
-						<p>One distro, UI, package manager, init system, and binary format. No need to make constant choices. And it all just works.</p>
+					<article class="feature feature-principle">
+						<figure class="feature-figure principle-figure" aria-hidden="true">
+							<div class="single-path-illustration">
+								<span>Vinix</span><i></i><span>desktop</span><i></i><span>apps</span>
+							</div>
+						</figure>
+						<div class="feature-copy">
+							<h3>One way to do things</h3>
+							<p>One distro, UI, package manager, init system, and binary format. No need to make constant choices. And it all just works.</p>
+						</div>
 					</article>
-					<article>
-						<h3>Change what you need</h3>
-						<p>Customize the system to work the way you want.</p>
+					<article class="feature feature-principle">
+						<figure class="feature-figure principle-figure" aria-hidden="true">
+							<div class="customize-illustration">
+								<span></span><span></span><span></span>
+							</div>
+						</figure>
+						<div class="feature-copy">
+							<h3>Change what you need</h3>
+							<p>Customize the system to work the way you want.</p>
+						</div>
 					</article>
-					<article>
-						<h3>Themes you can choose</h3>
-						<p>Pick from many themes. You can make it look like macOS Catalina or even Windows XP.</p>
-					</article>
-					<article>
-						<h3>Uses few resources</h3>
-						<p>Uses about 100 MB of RAM at startup and 1 GB of disk space.</p>
-					</article>
-					<article>
-						<h3>Stays small</h3>
-						<p>Vinix stays small and minimal. It will not get more bloated with each release.</p>
-					</article>
-					<figure class="hardware-image">
-						<img
-							src="assets/vinix-mac-family-dark.png"
-							width="1448"
-							height="1086"
-							loading="lazy"
-							decoding="async"
-							alt="Apple Mac lineup with MacBook Air, MacBook Pro, iMac, Mac mini, and Mac Studio"
-						/>
-					</figure>
-					<article class="supported-hardware">
-						<h3>Officially supported hardware</h3>
-						<p>Vinix initially is going to support every Apple Silicon Mac (only M1 Macs for now as of Sep 10 2026).</p>
-						<p>
-							Support for Intel Macs, back to the 2010 Mac mini, is next. So you can give an older Mac a fast, modern, fully supported OS.
-						</p>
-						<p>
-							The entire stack is built and tested together. No hunting for drivers or workarounds for sleep, wake, lid closing, hibernation, Wi-Fi, graphics, audio, or the other hardware basics that too often turn a Linux install into a project.
-						</p>
-						<p>You can also already install Vinix on an amd64 machine, but the driver support won't be great. Better to run it in a VM.</p>
+					<article class="feature feature-principle">
+						<figure class="feature-figure principle-figure" aria-hidden="true">
+							<div class="theme-illustration">
+								<span></span><span></span><span></span><span></span>
+							</div>
+						</figure>
+						<div class="feature-copy">
+							<h3>Themes you can choose</h3>
+							<p>Pick from many themes. You can make it look like macOS Catalina or even Windows XP.</p>
+						</div>
 					</article>
 				</div>
 			</section>

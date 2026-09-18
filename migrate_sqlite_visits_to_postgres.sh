@@ -46,6 +46,7 @@ if has_column referral_url; then referral_url_expr="COALESCE(referral_url, '')";
 psql "$conninfo" -v ON_ERROR_STOP=1 -q <<'SQL'
 CREATE TABLE IF NOT EXISTS visits (
 	id BIGSERIAL PRIMARY KEY,
+	site TEXT NOT NULL DEFAULT 'vinix',
 	visited_at TIMESTAMPTZ NOT NULL,
 	referral TEXT NOT NULL,
 	referral_url TEXT NOT NULL DEFAULT '',
@@ -53,13 +54,14 @@ CREATE TABLE IF NOT EXISTS visits (
 	country TEXT NOT NULL,
 	is_bot BOOLEAN NOT NULL DEFAULT false
 );
+ALTER TABLE visits ADD COLUMN IF NOT EXISTS site TEXT NOT NULL DEFAULT 'vinix';
 ALTER TABLE visits ADD COLUMN IF NOT EXISTS referral_url TEXT NOT NULL DEFAULT '';
 ALTER TABLE visits ADD COLUMN IF NOT EXISTS user_agent TEXT NOT NULL DEFAULT '';
-CREATE INDEX IF NOT EXISTS visits_visited_at_idx ON visits (visited_at);
+CREATE INDEX IF NOT EXISTS visits_site_visited_at_idx ON visits (site, visited_at);
 SQL
 
 source_count="$(sqlite3 -readonly "$source_db" 'SELECT COUNT(*) FROM visits;')"
-target_count="$(psql "$conninfo" -v ON_ERROR_STOP=1 -Atqc 'SELECT COUNT(*) FROM visits;')"
+target_count="$(psql "$conninfo" -v ON_ERROR_STOP=1 -Atqc "SELECT COUNT(*) FROM visits WHERE site = 'vinix';")"
 if [[ "$target_count" != "0" ]]; then
 	if (( target_count >= source_count )); then
 		echo "PostgreSQL already contains the ${source_count} SQLite visit records."
@@ -71,7 +73,7 @@ fi
 sqlite3 -readonly -csv "$source_db" "SELECT ${timestamp_expr}, ${referral_expr}, ${referral_url_expr}, ${user_agent_expr}, ${country_expr}, ${bot_expr} FROM visits ORDER BY id;" |
 	psql "$conninfo" -v ON_ERROR_STOP=1 -q -c '\copy visits (visited_at, referral, referral_url, user_agent, country, is_bot) FROM STDIN WITH (FORMAT csv)'
 
-imported_count="$(psql "$conninfo" -v ON_ERROR_STOP=1 -Atqc 'SELECT COUNT(*) FROM visits;')"
+imported_count="$(psql "$conninfo" -v ON_ERROR_STOP=1 -Atqc "SELECT COUNT(*) FROM visits WHERE site = 'vinix';")"
 [[ "$imported_count" == "$source_count" ]] || fail "import verification failed: expected ${source_count}, got ${imported_count}"
 
 echo "Migrated ${imported_count} visit records from SQLite to PostgreSQL."
