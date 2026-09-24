@@ -113,14 +113,14 @@
 		<main id="top">
 			<section class="hero" aria-label="Vinix desktop preview">
 				<div class="hero-copy">
-					<a class="hero-screenshot" href="assets/vinix-v-ui2-desktop.png?1" aria-label="Open the Vinix V UI2 desktop screenshot at full size">
+					<a class="hero-screenshot" href="assets/vinix-qemu-desktop-hero.png" aria-label="Open the Vinix QEMU desktop screenshot at full size">
 						<img
-							src="assets/vinix-v-ui2-desktop.png?1"
-							width="2048"
-							height="1536"
+							src="assets/vinix-qemu-desktop-hero.png"
+							width="2272"
+							height="1824"
 							fetchpriority="high"
 							decoding="async"
-							alt="Brand new Vinix desktop environment built in V and V UI2"
+							alt="Vinix desktop running in QEMU with Files, Activity Monitor, and Terminal open"
 						/>
 					</a>
 					<div class="hero-highlights" aria-label="Vinix benefits">
@@ -193,6 +193,7 @@ cd vinix
 							<span><img src="assets/logos/linux.svg" alt="" />OpenSSH</span>
 							<span><img src="assets/logos/curl.svg" alt="" />curl</span>
 							<span><img src="assets/logos/nginx.svg" alt="" />nginx</span>
+							<span><img src="assets/logos/docker.svg" alt="" />Docker</span>
 							<span><img src="assets/logos/gnu.svg" alt="" />GNU Make</span>
 							<span><img src="assets/logos/cmake.svg" alt="" />CMake</span>
 							<span><img src="assets/logos/cmake.svg" alt="" />Meson</span>
@@ -307,11 +308,37 @@ cd vinix
 						<figcaption>Blender.</figcaption>
 					</figure>
 					<figure>
-						<a href="assets/vinix-minecraft.png" aria-label="Open the Vinix Minecraft screenshot at full size">
+						<a href="assets/vinix-v-self-hosting.png" aria-label="Open the V compiler self-hosting screenshot at full size">
 							<img
-								src="assets/vinix-minecraft.png"
-								width="1024"
-								height="768"
+								src="assets/vinix-v-self-hosting.png"
+								width="2272"
+								height="1824"
+								loading="lazy"
+								decoding="async"
+								alt="The V compiler compiling itself in a terminal on the Vinix desktop"
+							/>
+						</a>
+						<figcaption>V compiler compiling itself on Vinix.</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-docker.png" aria-label="Open the Docker on Vinix screenshot at full size">
+							<img
+								src="assets/vinix-docker.png"
+								width="2048"
+								height="1536"
+								loading="lazy"
+								decoding="async"
+								alt="A terminal on the Vinix desktop pulling, building, and running Alpine Docker containers"
+							/>
+						</a>
+						<figcaption>Docker</figcaption>
+					</figure>
+					<figure>
+						<a href="assets/vinix-minecraft.png?v=20260920-1" aria-label="Open the Vinix Minecraft screenshot at full size">
+							<img
+								src="assets/vinix-minecraft.png?v=20260920-1"
+								width="2048"
+								height="1536"
 								loading="lazy"
 								decoding="async"
 								alt="Minecraft running in a Vinix desktop window"
@@ -416,13 +443,12 @@ cd vinix
 							<h3>Speed and performance</h3>
 							<p>
 								Vinix boots to a desktop in seconds and settles at about 100 MB of RAM and 1 GB of
-								disk. That is the whole system, not a stripped-down mode you switch into.
+								disk.
 							</p>
 							<p>
-								The kernel has no garbage collector. It is built with <code>-gc none</code> and manual
+								The kernel has no garbage collector. It uses manual
 								memory management, so no collection pass can stop a system call, an interrupt handler,
-								or the compositor at a moment of its own choosing. Memory use stays flat instead of
-								sawtoothing while the machine stays up.
+								or the compositor at a moment of its own choosing. Memory use stays flat.
 							</p>
 							<p>
 								Nothing runs that you did not start. There is no systemd, no background indexer, and
