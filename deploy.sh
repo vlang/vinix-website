@@ -112,7 +112,7 @@ done < <(rg --no-filename -o 'assets/[A-Za-z0-9._/-]+' "$site_dir/index.html" | 
 # binary. V's bundled Linux linker cannot read the bitcode emitted by Apple's
 # clang LTO mode, hence the explicit -fno-lto alongside -prod.
 echo "Cross-compiling the Linux x86_64 production binary..."
-v -path "$traffic_module_parent|@vlib|@vmodules" -os linux -arch amd64 -prod -cflags '-fno-lto' -o "$site_dir/vinix-website" "$site_dir"
+v -old-compiler -path "$traffic_module_parent|@vlib|@vmodules" -os linux -arch amd64 -prod -cflags '-fno-lto' -o "$site_dir/vinix-website" "$site_dir"
 
 echo "Checking SSH connectivity to $remote_host (timeout: ${connect_timeout}s)..."
 ssh "${ssh_options[@]}" "$remote_host" true
@@ -140,6 +140,9 @@ if [[ -n "$dry_run" ]]; then
 fi
 
 remote_dir_escaped="$(printf '%q' "$remote_dir")"
+echo "Making static assets readable by Nginx..."
+ssh "${ssh_options[@]}" "$remote_host" "chmod 0755 $remote_dir_escaped && find $remote_dir_escaped/assets -type d -exec chmod 0755 {} + && find $remote_dir_escaped/assets -type f -exec chmod 0644 {} +"
+
 echo "Installing and restarting ${service_name}.service on $remote_host..."
 ssh "${ssh_options[@]}" "$remote_host" "cd $remote_dir_escaped && test -x vinix-website && test -x migrate_sqlite_visits_to_postgres.sh && if ! sudo -u postgres psql -Atqc \"SELECT 1 FROM pg_roles WHERE rolname = 'vinix'\" | grep -qx 1; then sudo -u postgres createuser --login vinix; fi && if ! sudo -u postgres psql -Atqc \"SELECT 1 FROM pg_database WHERE datname = 'vinix'\" | grep -qx 1; then sudo -u postgres createdb --owner=vinix vinix; fi && systemctl stop ${service_name}.service && VINIX_DB_CONNINFO='host=127.0.0.1 port=5432 dbname=vinix user=vinix' ./migrate_sqlite_visits_to_postgres.sh data/vinix.db && install -m 0644 vinix-website.service /etc/systemd/system/${service_name}.service && install -m 0644 vinix-os.org.nginx.conf /etc/nginx/sites-available/vinix-os.org && ln -sfn /etc/nginx/sites-available/vinix-os.org /etc/nginx/sites-enabled/vinix-os.org && systemctl daemon-reload && systemctl enable ${service_name}.service && systemctl start ${service_name}.service && systemctl is-active --quiet ${service_name}.service && timeout 20 sh -c 'until curl --fail --silent --max-time 2 http://127.0.0.1:8095/ >/dev/null; do sleep 1; done' && nginx -t && systemctl reload nginx"
 
