@@ -358,7 +358,8 @@ h1 {
 .software-list img[src$="/llvm.svg"],
 .software-list img[src$="/curl.svg"],
 .software-list img[src$="/sqlite.svg"],
-.software-list img[src$="/openai.svg"] {
+.software-list img[src$="/openai.svg"],
+.software-list img[src$="/steam.svg"] {
 	filter: var(--dark-logo-filter);
 }
 
