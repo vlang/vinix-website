@@ -1,7 +1,7 @@
 module main
 
 import json2
-import net.http
+import os
 import time
 import veb
 
@@ -51,16 +51,15 @@ fn (mut app App) watch_latest_release() {
 	}
 }
 
+// Through curl rather than net.http: on the production server V's bundled
+// TLS spent minutes of CPU verifying GitHub's certificate, and GitHub hung up
+// long before it finished.
 fn fetch_newest_release() !string {
-	response := http.fetch(
-		url:        releases_api_url
-		user_agent: 'vinix-os.org'
-		header:     http.new_header(key: .accept, value: 'application/vnd.github+json')
-	)!
-	if response.status_code != 200 {
-		return error('GitHub answered ${response.status_code}')
+	result := os.execute("curl -fsS --max-time 30 -A vinix-os.org -H 'Accept: application/vnd.github+json' '${releases_api_url}'")
+	if result.exit_code != 0 {
+		return error('curl: ${result.output.trim_space()}')
 	}
-	return newest_release(response.body)
+	return newest_release(result.output)
 }
 
 // newest_release picks the newest published system image release from a
