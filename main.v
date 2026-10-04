@@ -20,6 +20,9 @@ mut:
 	stats_traffic &traffic.Tracker
 	traffic_lock sync.Mutex
 	home_html    string
+	// The newest Vinix release, for /version. See version.v.
+	latest_release      string
+	latest_release_lock sync.RwMutex
 }
 
 @['/'; get]
@@ -98,6 +101,8 @@ fn main() {
 		stats_traffic: stats_tracker
 		home_html:     os.read_file('index.html') or { panic('Could not load index.html: ${err}') }
 	}
+	app.latest_release_lock.init()
+	spawn app.watch_latest_release()
 	app.handle_static('assets', false) or { panic(err) }
 	app.serve_static('/style.css', 'style.css') or { panic(err) }
 	app.serve_static('/theme.js', 'theme.js') or { panic(err) }
