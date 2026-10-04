@@ -405,6 +405,7 @@ h1 {
 .qemu-run {
 	width: 100%;
 	max-width: 56rem;
+	margin-inline: auto;
 }
 
 .qemu-run > h2 {

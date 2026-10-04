@@ -107,8 +107,8 @@
 		<main id="top">
 			<section class="hero" aria-label="Vinix desktop preview">
 				<div class="hero-intro">
-					<h1>A modern operating system<br />written in V</h1>
-					<p class="hero-subhead">Fast and minimal, built from scratch for Apple Silicon Macs. No garbage collector, no systemd, no telemetry — with full compatibility for Alpine Linux binaries.</p>
+					<h1>Vinix is a modern operating system<br />written in V</h1>
+					<p class="hero-subhead">Fast and minimal, built from scratch for Apple Silicon Macs. No garbage collector, no systemd, no telemetry, with full compatibility for Alpine Linux binaries.</p>
 					<div class="hero-actions">
 						<a class="button" href="https://github.com/vlang/vinix/releases/download/m1-installer-latest/Vinix-Installer-M1.dmg">
 							<span class="button-label">Install on your M1 Mac</span>
@@ -143,27 +143,6 @@
 					<strong>Alpha software.</strong> Vinix is under active development and is not
 					intended for daily or production use yet.
 				</div>
-				<section class="qemu-run" aria-labelledby="qemu-run-title">
-					<h2 id="qemu-run-title">Run Vinix in QEMU</h2>
-					<p>Install the <a href="https://github.com/vlang/vinix#build-instructions">build prerequisites</a>, then let the launcher build and start the desktop.</p>
-					<div class="qemu-run-options">
-						<article>
-							<h3>Apple Silicon Macs</h3>
-							<p>QEMU uses macOS hardware virtualization for the ARM64 desktop.</p>
-							<pre><code>brew install qemu
-git clone https://github.com/vlang/vinix
-cd vinix
-./run-desktop-aarch64.sh</code></pre>
-						</article>
-						<article>
-							<h3>Other computers</h3>
-							<p>Use the x86_64 launcher. It uses KVM when available, otherwise QEMU emulation.</p>
-							<pre><code>git clone https://github.com/vlang/vinix
-cd vinix
-./run-desktop-amd64.sh</code></pre>
-						</article>
-					</div>
-				</section>
 			</section>
 
 			<section class="section software" id="software" aria-labelledby="software-title">
@@ -240,6 +219,28 @@ cd vinix
 							<span><img src="assets/logos/gnome.svg" alt="" />File Browser</span>
 						</div>
 					</div>
+				</div>
+			</section>
+
+			<section class="section qemu-run" aria-labelledby="qemu-run-title">
+				<h2 id="qemu-run-title">Run Vinix in QEMU</h2>
+				<p>Install the <a href="https://github.com/vlang/vinix#build-instructions">build prerequisites</a>, then let the launcher build and start the desktop.</p>
+				<div class="qemu-run-options">
+					<article>
+						<h3>Apple Silicon Macs</h3>
+						<p>QEMU uses macOS hardware virtualization for the ARM64 desktop.</p>
+						<pre><code>brew install qemu
+git clone https://github.com/vlang/vinix
+cd vinix
+./run-desktop-aarch64.sh</code></pre>
+					</article>
+					<article>
+						<h3>Other computers</h3>
+						<p>Use the x86_64 launcher. It uses KVM when available, otherwise QEMU emulation.</p>
+						<pre><code>git clone https://github.com/vlang/vinix
+cd vinix
+./run-desktop-amd64.sh</code></pre>
+					</article>
 				</div>
 			</section>
 
