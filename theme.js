@@ -12,13 +12,18 @@
 		}
 	}
 
+	const media = window.matchMedia("(prefers-color-scheme: dark)");
+	function systemPreference() {
+		return media.matches ? "dark" : "light";
+	}
+
 	let preference = readPreference();
 
 	function applyTheme() {
-		const theme = preference || "dark";
+		const theme = preference || systemPreference();
 		root.dataset.theme = theme;
 		document.querySelector('meta[name="theme-color"]').content =
-			theme === "dark" ? "#0b131e" : "#f2f2f2";
+			theme === "dark" ? "#000000" : "#ffffff";
 
 		if (toggle) {
 			const nextTheme = theme === "dark" ? "light" : "dark";
@@ -30,7 +35,6 @@
 		}
 	}
 
-	// Resolve the dark default before the stylesheet loads to avoid a light flash.
 	applyTheme();
 
 	document.addEventListener("DOMContentLoaded", () => {
@@ -51,6 +55,12 @@
 	window.addEventListener("storage", (event) => {
 		if (event.key === storageKey || event.key === null) {
 			preference = readPreference();
+			applyTheme();
+		}
+	});
+
+	media.addEventListener("change", () => {
+		if (!preference) {
 			applyTheme();
 		}
 	});
