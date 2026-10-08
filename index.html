@@ -7,12 +7,12 @@
 			name="description"
 			content="Vinix is a modern operating system written in the V programming language."
 		/>
-		<meta name="theme-color" content="#0b131e" />
+		<meta name="theme-color" content="#ffffff" />
 		<meta name="robots" content="index, follow" />
 		<link rel="canonical" href="https://vinix-os.org/" />
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Vinix" />
-		<meta property="og:title" content="Vinix — A modern operating system written in V" />
+		<meta property="og:title" content="Vinix" />
 		<meta property="og:description" content="A modern operating system written in the V programming language." />
 		<meta property="og:url" content="https://vinix-os.org/" />
 		<meta property="og:image" content="https://vinix-os.org/assets/vinix-social-preview.png" />
@@ -36,17 +36,11 @@
 				"image": "https://vinix-os.org/assets/vinix-social-preview.png"
 			}
 		</script>
-		<script src="theme.js?v=20260909-1"></script>
+		<script src="theme.js?v=20261004-1"></script>
 		<title>Vinix — A modern operating system written in V</title>
 
 		<link rel="icon" href="assets/vinix-logo.svg" type="image/svg+xml" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Code+Pro:wght@500&amp;display=swap"
-			rel="stylesheet"
-		/>
-		<link rel="stylesheet" href="style.css?v=20260918-1" />
+		<link rel="stylesheet" href="style.css?v=20261004-5" />
 	</head>
 	<body>
 		<header class="site-header">
@@ -105,138 +99,139 @@
 						<circle cx="12" cy="12" r="4" />
 						<path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4m0-14.2-1.4 1.4M6.3 17.7l-1.4 1.4" />
 					</svg>
-					<span>Dark mode</span>
+					<span class="button-label">Dark mode</span>
 				</button>
 			</div>
 		</header>
 
 		<main id="top">
 			<section class="hero" aria-label="Vinix desktop preview">
-				<div class="hero-copy">
-					<a class="hero-screenshot" href="assets/vinix-qemu-desktop-hero.png" aria-label="Open the Vinix QEMU desktop screenshot at full size">
-						<img
-							src="assets/vinix-qemu-desktop-hero.png"
-							width="2272"
-							height="1824"
-							fetchpriority="high"
-							decoding="async"
-							alt="Vinix desktop running in QEMU with Files, Activity Monitor, and Terminal open"
-						/>
-					</a>
-					<div class="hero-highlights" aria-label="Vinix benefits">
-						<p>100 MB RAM<br />usage on boot</p>
-						<p>≈1 GB of disk <br> space after install</p>
-						<p>Official support of <br> Apple Silicon Macs</p>
-						<p>Compatible with<br />Alpine Linux binaries</p>
-					</div>
+				<div class="hero-intro">
+					<h1>Vinix is a modern operating system<br />written in V</h1>
+					<p class="hero-subhead">Fast and minimal, built from scratch for Apple Silicon Macs. No garbage collector, no systemd, no telemetry, with full compatibility for Alpine Linux binaries.</p>
 					<div class="hero-actions">
-						<a class="button" href="https://github.com/vlang/vinix/releases/download/m1-installer-latest/Vinix-Installer-M1.dmg" onclick="alert('The small Vinix Installer download is starting. Open the DMG when it finishes; the app will download the Vinix image during installation.')">
-							Install on your M1 Mac
+						<a class="button" href="https://github.com/vlang/vinix/releases/download/m1-installer-latest/Vinix-Installer-M1.dmg">
+							<span class="button-label">Install on your M1 Mac</span>
 						</a>
 						<a class="button button-primary" href="https://github.com/vlang/vinix/releases">
-							Download nightly
+							<span class="button-label">Download nightly</span>
 						</a>
-						<a class="button" href="https://github.com/vlang/vinix">Explore the source</a>
+						<a class="button" href="https://github.com/vlang/vinix">
+							<span class="button-label">Explore the source</span>
+						</a>
 					</div>
-					<p class="m-series-note">M3, M4, M5 support coming soon.</p>
-					<div class="status-note" role="note">
-						<span class="status-dot" aria-hidden="true"></span>
-						<strong>Alpha software.</strong> Vinix is under active development and is not
-						intended for daily or production use yet.
+					<p class="m-series-note">Installs a small app that downloads the full Vinix image during setup. M3, M4, M5 support coming soon.</p>
+				</div>
+				<div class="hero-media">
+				<div class="hero-software" id="software" aria-labelledby="software-title">
+					<div class="hero-software-groups">
+						<div class="software-group software-group-languages">
+							<h3>Languages &amp; toolchains</h3>
+							<div class="software-list">
+								<span><img src="assets/logos/llvm.svg" alt="" />Clang / LLVM</span>
+								<span><img src="assets/logos/gnu.svg" alt="" />GCC / G++</span>
+								<span><img src="assets/logos/go.svg" alt="" />Go</span>
+								<span><img src="assets/logos/rust.svg" alt="" />Rust</span>
+								<span><img src="assets/logos/java.svg" alt="" />Java</span>
+								<span><img src="assets/logos/nodedotjs.svg" alt="" />Node.js / npm</span>
+								<span><img src="assets/logos/python.svg" alt="" />Python 3</span>
+								<span><img src="assets/logos/ruby.svg" alt="" />Ruby 3</span>
+								<span><img class="software-logo-v" src="assets/logos/v.png" alt="" />V</span>
+							</div>
+						</div>
+						<div class="software-group software-group-developer">
+							<h3>Developer &amp; infrastructure</h3>
+							<div class="software-list">
+								<span><img src="assets/logos/openai.svg" alt="" />Codex CLI</span>
+								<span><img src="assets/logos/claude.svg" alt="" />Claude</span>
+								<span><img src="assets/logos/git.svg" alt="" />Git</span>
+								<span><img src="assets/logos/linux.svg" alt="" />OpenSSH</span>
+								<span><img src="assets/logos/curl.svg" alt="" />curl</span>
+								<span><img src="assets/logos/nginx.svg" alt="" />nginx</span>
+								<span><img src="assets/logos/docker.svg" alt="" />Docker</span>
+								<span><img src="assets/logos/linux.svg" alt="" />QEMU</span>
+								<span><img src="assets/logos/gnu.svg" alt="" />GNU Make</span>
+								<span><img src="assets/logos/cmake.svg" alt="" />CMake</span>
+								<span><img src="assets/logos/cmake.svg" alt="" />Meson</span>
+								<span><img src="assets/logos/linux.svg" alt="" />GDB</span>
+								<span><img src="assets/logos/radare2.svg" alt="" />radare2</span>
+								<span><img src="assets/logos/linux.svg" alt="" />strace</span>
+								<span><img src="assets/logos/sqlite.svg" alt="" />SQLite</span>
+								<span><img src="assets/logos/gnubash.svg" alt="" />Bash</span>
+								<span><img src="assets/logos/linux.svg" alt="" />BusyBox</span>
+								<span><img src="assets/logos/freebsd.svg" alt="" /><img src="assets/logos/alpinelinux.svg" alt="" /><img src="assets/logos/voidlinux.svg" alt="" />pkg / APK / XBPS</span>
+							</div>
+						</div>
+						<div class="software-group software-group-desktop">
+							<h3>Desktop &amp; applications</h3>
+							<div class="software-list">
+								<span><img src="assets/logos/firefox.svg" alt="" />Firefox ESR</span>
+								<span><img src="assets/logos/chromium.svg" alt="" />Chromium</span>
+								<span><img src="assets/logos/blender.svg" alt="" />Blender</span>
+								<span><img src="assets/logos/gimp.svg" alt="" />GIMP</span>
+								<span><img src="assets/logos/wine.svg" alt="" />Wine</span>
+								<span><img src="assets/logos/steam.svg" alt="" />Steam</span>
+								<span><img src="assets/logos/linux.svg" alt="" />Minecraft</span>
+								<span><img src="assets/logos/gnome.svg" alt="" />Gnumeric</span>
+								<span><img src="assets/logos/gnome.svg" alt="" />GTK 3</span>
+								<span><img src="assets/logos/opengl.svg" alt="" />X.org</span>
+								<span><img src="assets/logos/wayland.svg" alt="" />Wayland</span>
+								<span><img src="assets/logos/hyprland.svg" alt="" />Hyprland</span>
+								<span><img src="assets/logos/opengl.svg" alt="" />Mesa / OpenGL</span>
+								<span><img src="assets/logos/ghostty.svg" alt="" />Nano</span>
+								<span><img src="assets/logos/vim.svg" alt="" />Vim</span>
+								<span><img src="assets/logos/ghostty.svg" alt="" />Terminal</span>
+								<span><img src="assets/logos/tmux.svg" alt="" />tmux</span>
+								<span><img src="assets/logos/sublimetext.svg" alt="" />Sublime Text</span>
+								<span><img src="assets/logos/gnome.svg" alt="" />File Browser</span>
+						</div>
 					</div>
-					<section class="qemu-run" aria-labelledby="qemu-run-title">
-						<h2 id="qemu-run-title">Run Vinix in QEMU</h2>
-						<p>Install the <a href="https://github.com/vlang/vinix#build-instructions">build prerequisites</a>, then let the launcher build and start the desktop.</p>
-						<div class="qemu-run-options">
-							<article>
-								<h3>Apple Silicon Macs</h3>
-								<p>QEMU uses macOS hardware virtualization for the ARM64 desktop.</p>
-								<pre><code>brew install qemu
+					</div>
+				</div>
+				<div class="hero-screenshot">
+					<img
+						src="assets/vinix-qemu-desktop-hero.png"
+						width="2272"
+						height="1824"
+						fetchpriority="high"
+						decoding="async"
+						alt="Vinix desktop running in QEMU with Files, Activity Monitor, and Terminal open"
+					/>
+				</div>
+				</div>
+				<div class="hero-highlights" aria-label="Vinix benefits">
+					<p>100 MB RAM<br />usage on boot</p>
+					<p>≈1 GB of disk <br> space after install</p>
+					<p>Official support of <br> Apple Silicon Macs</p>
+					<p>Compatible with<br />Alpine Linux binaries</p>
+				</div>
+				<div class="status-note" role="note">
+					<span class="status-dot" aria-hidden="true"></span>
+					<strong>Alpha software.</strong> Vinix is under active development and is not
+					intended for daily or production use yet.
+				</div>
+			</section>
+
+			<section class="section qemu-run" aria-labelledby="qemu-run-title">
+				<h2 id="qemu-run-title">Run Vinix in QEMU</h2>
+				<p>Install the <a href="https://github.com/vlang/vinix#build-instructions">build prerequisites</a>, then let the launcher build and start the desktop.</p>
+				<div class="qemu-run-options">
+					<article>
+						<h3>Apple Silicon Macs</h3>
+						<p>QEMU uses macOS hardware virtualization for the ARM64 desktop.</p>
+						<pre><code>brew install qemu
 git clone https://github.com/vlang/vinix
 cd vinix
 ./run-desktop-aarch64.sh</code></pre>
-							</article>
-							<article>
-								<h3>Other computers</h3>
-								<p>Use the x86_64 launcher. It uses KVM when available, otherwise QEMU emulation.</p>
-								<pre><code>git clone https://github.com/vlang/vinix
+					</article>
+					<article>
+						<h3>Other computers</h3>
+						<p>Use the x86_64 launcher. It uses KVM when available, otherwise QEMU emulation.</p>
+						<pre><code>git clone https://github.com/vlang/vinix
 cd vinix
 ./run-desktop-amd64.sh</code></pre>
-							</article>
-						</div>
-					</section>
+					</article>
 				</div>
-				<aside class="software-panel" aria-labelledby="software-title">
-					<div class="software-heading">
-						<p class="eyebrow" id="software-title">Runs on Vinix</p>
-					</div>
-					<div class="software-group">
-						<h3>Languages &amp; toolchains</h3>
-						<div class="software-list">
-							<span><img src="assets/logos/llvm.svg" alt="" />Clang / LLVM</span>
-							<span><img src="assets/logos/gnu.svg" alt="" />GCC / G++</span>
-							<span><img src="assets/logos/go.svg" alt="" />Go</span>
-							<span><img src="assets/logos/rust.svg" alt="" />Rust</span>
-							<span><img src="assets/logos/java.svg" alt="" />Java</span>
-							<span><img src="assets/logos/nodedotjs.svg" alt="" />Node.js / npm</span>
-							<span><img src="assets/logos/python.svg" alt="" />Python 3</span>
-							<span><img src="assets/logos/ruby.svg" alt="" />Ruby 3</span>
-							<span><img class="software-logo-v" src="assets/logos/v.png" alt="" />V</span>
-						</div>
-					</div>
-					<div class="software-group">
-						<h3>Developer &amp; infrastructure</h3>
-						<div class="software-list">
-							<span><img src="assets/logos/openai.svg" alt="" />Codex CLI</span>
-							<span><img src="assets/logos/claude.svg" alt="" />Claude</span>
-							<span><img src="assets/logos/git.svg" alt="" />Git</span>
-							<span><img src="assets/logos/linux.svg" alt="" />OpenSSH</span>
-							<span><img src="assets/logos/curl.svg" alt="" />curl</span>
-							<span><img src="assets/logos/nginx.svg" alt="" />nginx</span>
-							<span><img src="assets/logos/docker.svg" alt="" />Docker</span>
-							<span><img src="assets/logos/linux.svg" alt="" />QEMU</span>
-							<span><img src="assets/logos/gnu.svg" alt="" />GNU Make</span>
-							<span><img src="assets/logos/cmake.svg" alt="" />CMake</span>
-							<span><img src="assets/logos/cmake.svg" alt="" />Meson</span>
-							<span><img src="assets/logos/linux.svg" alt="" />GDB</span>
-							<span><img src="assets/logos/radare2.svg" alt="" />radare2</span>
-							<span><img src="assets/logos/linux.svg" alt="" />strace</span>
-							<span><img src="assets/logos/sqlite.svg" alt="" />SQLite</span>
-							<span><img src="assets/logos/gnubash.svg" alt="" />Bash</span>
-							<span><img src="assets/logos/linux.svg" alt="" />BusyBox</span>
-							<span>
-								<img src="assets/logos/freebsd.svg" alt="" />
-								<img src="assets/logos/alpinelinux.svg" alt="" />
-								<img src="assets/logos/voidlinux.svg" alt="" />
-								pkg / APK / XBPS
-							</span>
-						</div>
-					</div>
-					<div class="software-group">
-						<h3>Desktop &amp; applications</h3>
-						<div class="software-list">
-							<span><img src="assets/logos/firefox.svg" alt="" />Firefox ESR</span>
-							<span><img src="assets/logos/chromium.svg" alt="" />Chromium</span>
-							<span><img src="assets/logos/blender.svg" alt="" />Blender</span>
-							<span><img src="assets/logos/gimp.svg" alt="" />GIMP</span>
-							<span><img src="assets/logos/wine.svg" alt="" />Wine</span>
-							<span><img src="assets/logos/steam.svg" alt="" />Steam</span>
-							<span><img src="assets/logos/linux.svg" alt="" />Minecraft</span>
-							<span><img src="assets/logos/gnome.svg" alt="" />Gnumeric</span>
-							<span><img src="assets/logos/gnome.svg" alt="" />GTK 3</span>
-							<span><img src="assets/logos/opengl.svg" alt="" />X.org</span>
-							<span><img src="assets/logos/wayland.svg" alt="" />Wayland</span>
-							<span><img src="assets/logos/hyprland.svg" alt="" />Hyprland</span>
-							<span><img src="assets/logos/opengl.svg" alt="" />Mesa / OpenGL</span>
-							<span><img src="assets/logos/ghostty.svg" alt="" />Nano</span>
-							<span><img src="assets/logos/vim.svg" alt="" />Vim</span>
-							<span><img src="assets/logos/ghostty.svg" alt="" />Terminal</span>
-							<span><img src="assets/logos/tmux.svg" alt="" />tmux</span>
-							<span><img src="assets/logos/sublimetext.svg" alt="" />Sublime Text</span>
-							<span><img src="assets/logos/gnome.svg" alt="" />File Browser</span>
-						</div>
-					</div>
-				</aside>
 			</section>
 
 			<section class="section showcase" aria-labelledby="showcase-title">
@@ -245,199 +240,158 @@ cd vinix
 				</div>
 				<div class="screenshot-grid">
 					<figure id="in-action-m1-desktop">
-						<a href="assets/vinix-m1-desktop.png" aria-label="Open the Vinix M1 desktop screenshot at full size">
-							<img
-								src="assets/vinix-m1-desktop.png"
-								width="1970"
-								height="1794"
-								loading="lazy"
-								decoding="async"
-								alt="Vinix desktop running on a 2020 M1 MacBook Air"
-							/>
-						</a>
+						<img
+							src="assets/vinix-m1-desktop.png"
+							width="1970"
+							height="1794"
+							loading="lazy"
+							decoding="async"
+							alt="Vinix desktop running on a 2020 M1 MacBook Air"
+						/>
 						<figcaption>Vinix desktop on an M1 MacBook Air.</figcaption>
 					</figure>
 					<figure id="in-action-chromium">
-						<a href="assets/vinix-chromium.png" aria-label="Open the Chromium on Vinix screenshot at full size">
-							<img
-								src="assets/vinix-chromium.png"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="Chromium running on the Vinix desktop"
-							/>
-						</a>
+						<img
+							src="assets/vinix-chromium.png"
+							width="2048"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							alt="Chromium running on the Vinix desktop"
+						/>
 						<figcaption>Chromium</figcaption>
 					</figure>
 					<figure id="in-action-wine-apps">
-						<a href="assets/vinix-wine-apps.png" aria-label="Open the Vinix Wine applications screenshot at full size">
-							<img
-								src="assets/vinix-wine-apps.png"
-								width="1024"
-								height="768"
-								loading="lazy"
-								decoding="async"
-								alt="Wine Calculator and Wine Notepad running on the Vinix desktop"
-							/>
-						</a>
+						<img
+							src="assets/vinix-wine-apps.png"
+							width="1024"
+							height="768"
+							loading="lazy"
+							decoding="async"
+							alt="Wine Calculator and Wine Notepad running on the Vinix desktop"
+						/>
 						<figcaption>Wine apps: Calculator and Notepad.</figcaption>
 					</figure>
 					<figure id="in-action-ms-office">
-						<a href="assets/vinix-ms-office.png" aria-label="Open the Microsoft Office on Vinix screenshot at full size">
-							<img
-								src="assets/vinix-ms-office.png"
-								width="2242"
-								height="1560"
-								loading="lazy"
-								decoding="async"
-								alt="Microsoft Word 2013 running through Wine on the Vinix desktop"
-							/>
-						</a>
+						<img
+							src="assets/vinix-ms-office.png"
+							width="2242"
+							height="1560"
+							loading="lazy"
+							decoding="async"
+							alt="Microsoft Word 2013 running through Wine on the Vinix desktop"
+						/>
 						<figcaption>MS Office on Vinix: an x64 Windows app runs through Wine—an Alpine Linux binary—on ARM64 hardware.</figcaption>
 					</figure>
 					<figure id="in-action-blender">
-						<a href="assets/vinix-blender.png" aria-label="Open the Blender on Vinix screenshot at full size">
-							<img
-								src="assets/vinix-blender.png"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="Blender running on the Vinix desktop"
-							/>
-						</a>
+						<img
+							src="assets/vinix-blender.png"
+							width="2048"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							alt="Blender running on the Vinix desktop"
+						/>
 						<figcaption>Blender.</figcaption>
 					</figure>
 					<figure id="in-action-self-hosting">
-						<a href="assets/vinix-v-self-hosting.png" aria-label="Open the V compiler self-hosting screenshot at full size">
-							<img
-								src="assets/vinix-v-self-hosting.png"
-								width="2272"
-								height="1824"
-								loading="lazy"
-								decoding="async"
-								alt="The V compiler compiling itself in a terminal on the Vinix desktop"
-							/>
-						</a>
+						<img
+							src="assets/vinix-v-self-hosting.png"
+							width="2272"
+							height="1824"
+							loading="lazy"
+							decoding="async"
+							alt="The V compiler compiling itself in a terminal on the Vinix desktop"
+						/>
 						<figcaption>V compiler compiling itself on Vinix.</figcaption>
 					</figure>
 					<figure id="in-action-docker">
-						<a href="assets/vinix-docker.png" aria-label="Open the Docker on Vinix screenshot at full size">
-							<img
-								src="assets/vinix-docker.png"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="A terminal on the Vinix desktop pulling, building, and running Alpine Docker containers"
-							/>
-						</a>
+						<img
+							src="assets/vinix-docker.png"
+							width="2048"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							alt="A terminal on the Vinix desktop pulling, building, and running Alpine Docker containers"
+						/>
 						<figcaption>Docker</figcaption>
 					</figure>
-					<figure id="in-action-qemu-vinix-in-vinix">
-						<a href="assets/vinix-in-vinix-qemu.png" aria-label="Open the Vinix running in Vinix on QEMU screenshot at full size">
-							<img
-								src="assets/vinix-in-vinix-qemu.png"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="A Vinix desktop running inside a QEMU window on a Vinix desktop"
-							/>
-						</a>
-						<figcaption>Vinix running in Vinix on QEMU.</figcaption>
-					</figure>
-					<figure id="in-action-steam">
-						<a href="assets/vinix-steam.png" aria-label="Open the Steam on Vinix screenshot at full size">
-							<img
-								src="assets/vinix-steam.png"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="The Steam sign-in window on the Vinix desktop"
-							/>
-						</a>
-						<figcaption>Steam</figcaption>
-					</figure>
 					<figure id="in-action-minecraft">
-						<a href="assets/vinix-minecraft.png?v=20260920-1" aria-label="Open the Vinix Minecraft screenshot at full size">
-							<img
-								src="assets/vinix-minecraft.png?v=20260920-1"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="Minecraft running in a Vinix desktop window"
-							/>
-						</a>
+						<img
+							src="assets/vinix-minecraft.png?v=20260920-1"
+							width="2048"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							alt="Minecraft running in a Vinix desktop window"
+						/>
 						<figcaption>Minecraft.</figcaption>
 					</figure>
 					<figure id="in-action-wayland-hyprland">
-						<a href="assets/vinix-wayland-hyprland.png" aria-label="Open the Vinix Wayland and Hyprland screenshot at full size">
-							<img
-								src="assets/vinix-wayland-hyprland.png"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="Vinix Wayland desktop dashboard showing Hyprland running in QEMU"
-							/>
-						</a>
+						<img
+							src="assets/vinix-wayland-hyprland.png"
+							width="2048"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							alt="Vinix Wayland desktop dashboard showing Hyprland running in QEMU"
+						/>
 						<figcaption>Wayland / Hyprland on Vinix.</figcaption>
 					</figure>
 					<figure id="in-action-gnumeric">
-						<a href="assets/vinix-gnumeric.png" aria-label="Open the Vinix Gnumeric screenshot at full size">
-							<img
-								src="assets/vinix-gnumeric.png"
-								width="2292"
-								height="1846"
-								loading="lazy"
-								decoding="async"
-								alt="Gnumeric spreadsheet running in Vinix QEMU"
-							/>
-						</a>
+						<img
+							src="assets/vinix-gnumeric.png"
+							width="2292"
+							height="1846"
+							loading="lazy"
+							decoding="async"
+							alt="Gnumeric spreadsheet running in Vinix QEMU"
+						/>
 						<figcaption>Gnumeric on Vinix.</figcaption>
 					</figure>
 					<figure id="in-action-sublime-text">
-						<a href="assets/vinix-sublime-text.png" aria-label="Open the Vinix Sublime Text screenshot at full size">
-							<img
-								src="assets/vinix-sublime-text.png"
-								width="2048"
-								height="1536"
-								loading="lazy"
-								decoding="async"
-								alt="Sublime Text editing a VINIX FTW document on the Vinix desktop"
-							/>
-						</a>
+						<img
+							src="assets/vinix-sublime-text.png"
+							width="2048"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							alt="Sublime Text editing a VINIX FTW document on the Vinix desktop"
+						/>
 						<figcaption>Sublime Text on Vinix.</figcaption>
 					</figure>
 					<figure id="in-action-radare2">
-						<a href="assets/vinix-radare2.png" aria-label="Open the radare2 on Vinix screenshot at full size">
-							<img
-								src="assets/vinix-radare2.png"
-								width="1024"
-								height="768"
-								loading="lazy"
-								decoding="async"
-								alt="radare2 disassembling a program on the Vinix desktop"
-							/>
-						</a>
+						<img
+							src="assets/vinix-radare2.png"
+							width="1024"
+							height="768"
+							loading="lazy"
+							decoding="async"
+							alt="radare2 disassembling a program on the Vinix desktop"
+						/>
 						<figcaption>radare2</figcaption>
 					</figure>
 					<figure id="in-action-desktop">
-						<a href="assets/vinix-desktop-hero.png" aria-label="Open the Vinix desktop screenshot at full size">
-							<img
-								src="assets/vinix-desktop-hero.png"
-								width="1347"
-								height="1030"
-								loading="lazy"
-								decoding="async"
-								alt="Vinix desktop with system, files, welcome, and calculator windows open"
-							/>
-						</a>
+						<img
+							src="assets/vinix-desktop-hero.png"
+							width="1347"
+							height="1030"
+							loading="lazy"
+							decoding="async"
+							alt="Vinix desktop with system, files, welcome, and calculator windows open"
+						/>
 						<figcaption>Vinix desktop written from scratch in V + V UI2.</figcaption>
+					</figure>
+					<figure id="in-action-doom">
+						<img
+							src="assets/vinix-doom.jpg"
+							width="2048"
+							height="1536"
+							loading="lazy"
+							decoding="async"
+							alt="Chocolate Doom running in a window on the Vinix desktop"
+						/>
+						<figcaption>Doom, via Chocolate Doom.</figcaption>
 					</figure>
 				</div>
 			</section>
@@ -448,24 +402,21 @@ cd vinix
 				</div>
 				<div class="feature-list">
 					<article id="feature-speed-and-performance" class="feature">
-						<figure class="feature-figure">
-							<svg class="feature-svg" viewBox="0 0 640 400" role="img" aria-labelledby="feature-speed-title">
-								<title id="feature-speed-title">Vinix uses a small fraction of a modern machine's memory and disk</title>
-								<g class="f-stroke f-muted">
-									<path d="M60 58 H580" />
-									<path d="M60 50 V68 M164 54 V64 M268 54 V64 M372 54 V64 M476 54 V64 M580 50 V68" />
-								</g>
-								<text class="f-label" x="60" y="108">RAM ON BOOT — 100 MB</text>
-								<rect class="f-stroke" x="60" y="118" width="520" height="40" />
-								<rect class="f-accent-fill" x="60" y="118" width="42" height="40" />
-								<text class="f-label" x="60" y="198">DISK AFTER INSTALL — 1 GB</text>
-								<rect class="f-stroke" x="60" y="208" width="520" height="40" />
-								<rect class="f-accent-fill" x="60" y="208" width="64" height="40" />
-								<text class="f-label" x="60" y="288">BOOT TO DESKTOP — SECONDS</text>
-								<rect class="f-stroke" x="60" y="298" width="520" height="40" />
-								<rect class="f-accent-fill" x="60" y="298" width="30" height="40" />
-								<text class="f-label" x="60" y="366">NO GC · NO SYSTEMD · NO TELEMETRY</text>
-							</svg>
+						<figure class="feature-figure feature-figure-stats">
+							<div class="stat-grid">
+								<div class="stat-tile">
+									<span class="stat-value">100 MB</span>
+									<span class="stat-label">RAM on boot</span>
+								</div>
+								<div class="stat-tile">
+									<span class="stat-value">1 GB</span>
+									<span class="stat-label">disk after install</span>
+								</div>
+								<div class="stat-tile">
+									<span class="stat-value">0</span>
+									<span class="stat-label">garbage collector pauses</span>
+								</div>
+							</div>
 						</figure>
 						<div class="feature-copy">
 							<h3>Speed and performance</h3>
@@ -488,35 +439,15 @@ cd vinix
 						</div>
 					</article>
 					<article id="feature-sandboxing" class="feature">
-						<figure class="feature-figure">
-							<svg class="feature-svg" viewBox="0 0 640 400" role="img" aria-labelledby="feature-sandbox-title">
-								<title id="feature-sandbox-title">A sandboxed application cannot reach the filesystem outside its own directory</title>
-								<text class="f-label f-label-accent" x="40" y="86">SANDBOX (OPTIONAL)</text>
-								<rect class="f-stroke f-accent f-dash" x="40" y="100" width="240" height="210" />
-								<rect class="f-stroke" x="72" y="136" width="176" height="138" />
-								<path class="f-stroke" d="M72 166 H248" />
-								<circle class="f-fill-muted" cx="88" cy="151" r="5" />
-								<circle class="f-fill-muted" cx="106" cy="151" r="5" />
-								<g class="f-stroke f-muted">
-									<path d="M92 192 H228 M92 216 H228 M92 240 H196" />
-								</g>
-								<g class="f-stroke f-muted f-dash">
-									<path d="M292 205 H322" />
-									<path d="M362 205 H380" />
-								</g>
-								<path class="f-fill-muted" d="M374 198 L386 205 L374 212 Z" />
-								<g class="f-stroke f-accent">
-									<path d="M330 195 L354 219 M354 195 L330 219" />
-								</g>
-								<text class="f-label" x="400" y="86">REST OF THE SYSTEM</text>
-								<g class="f-stroke f-muted">
-									<rect x="400" y="100" width="200" height="60" />
-									<rect x="400" y="175" width="200" height="60" />
-									<rect x="400" y="250" width="200" height="60" />
-								</g>
-								<text class="f-label" x="420" y="136">/home</text>
-								<text class="f-label" x="420" y="211">~/.ssh</text>
-								<text class="f-label" x="420" y="286">other apps</text>
+						<figure class="feature-figure feature-figure-icon" aria-hidden="true">
+							<svg class="sandbox-icon" viewBox="0 0 120 120" fill="none">
+								<circle cx="60" cy="60" r="52" stroke="currentColor" stroke-width="1.5" opacity="0.15" />
+								<circle cx="60" cy="60" r="38" stroke="currentColor" stroke-width="1.5" opacity="0.3" />
+								<circle cx="60" cy="60" r="24" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+								<path d="M52 58.4v-7.2a8 8 0 0 1 16 0v7.2" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+								<rect x="48" y="58.4" width="24" height="19.2" rx="4" fill="currentColor" />
+								<circle cx="60" cy="65.6" r="2.1" fill="var(--paper)" />
+								<rect x="58.7" y="67.2" width="2.6" height="5.6" rx="1" fill="var(--paper)" />
 							</svg>
 						</figure>
 						<div class="feature-copy">
@@ -543,42 +474,16 @@ cd vinix
 						</div>
 					</article>
 					<article id="feature-linux-compatibility" class="feature">
-						<figure class="feature-figure">
-							<svg class="feature-svg" viewBox="0 0 640 400" role="img" aria-labelledby="feature-linux-title">
-								<title id="feature-linux-title">Alpine Linux binaries call the Vinix kernel directly through Linux system calls</title>
-								<text class="f-label" x="30" y="86">ALPINE AARCH64 BINARY</text>
-								<rect class="f-stroke" x="30" y="100" width="170" height="200" />
-								<g class="f-stroke f-muted">
-									<path d="M30 140 H200 M30 180 H200 M30 240 H200" />
-								</g>
-								<text class="f-label" x="48" y="127">ELF</text>
-								<text class="f-label" x="48" y="167">musl</text>
-								<text class="f-label" x="48" y="215">chromium</text>
-								<text class="f-label" x="48" y="267">blender</text>
-								<text class="f-label" x="440" y="86">VINIX KERNEL</text>
-								<rect class="f-stroke" x="440" y="100" width="170" height="200" />
-								<g class="f-stroke f-muted">
-									<path d="M440 140 H610 M440 180 H610 M440 240 H610" />
-								</g>
-								<text class="f-label" x="458" y="127">VFS</text>
-								<text class="f-label" x="458" y="167">SCHEDULER</text>
-								<text class="f-label" x="458" y="215">MEMORY</text>
-								<text class="f-label" x="458" y="267">DRIVERS</text>
-								<g class="f-stroke f-accent">
-									<path d="M212 133 H262 M378 133 H420 M212 178 H262 M378 178 H420 M212 223 H262 M378 223 H420 M212 268 H262 M378 268 H420" />
-								</g>
-								<g class="f-accent-fill">
-									<path d="M414 126 L428 133 L414 140 Z" />
-									<path d="M414 171 L428 178 L414 185 Z" />
-									<path d="M414 216 L428 223 L414 230 Z" />
-									<path d="M414 261 L428 268 L414 275 Z" />
-								</g>
-								<text class="f-label f-label-center" x="320" y="138">openat</text>
-								<text class="f-label f-label-center" x="320" y="183">mmap</text>
-								<text class="f-label f-label-center" x="320" y="228">futex</text>
-								<text class="f-label f-label-center" x="320" y="273">ioctl</text>
-								<text class="f-label f-label-center" x="320" y="350">NO VM · NO CONTAINER · NO EMULATION</text>
-							</svg>
+						<figure class="feature-figure feature-figure-terminal">
+							<div class="terminal" aria-hidden="true">
+								<div class="terminal-bar"><span></span><span></span><span></span></div>
+								<pre class="terminal-body"><code>$ uname -m
+aarch64
+$ pkg install chromium
+(1/1) Installing chromium
+$ chromium
+Chromium 142.0 starting…</code></pre>
+							</div>
 						</figure>
 						<div class="feature-copy">
 							<h3>Full compatibility with Linux syscalls and Alpine Linux binaries</h3>
@@ -604,39 +509,13 @@ cd vinix
 						</div>
 					</article>
 					<article id="feature-m1–m5-gpu-drivers" class="feature">
-						<figure class="feature-figure">
-							<svg class="feature-svg" viewBox="0 0 640 400" role="img" aria-labelledby="feature-gpu-title">
-								<title id="feature-gpu-title">The Apple M1 AGX GPU driver, currently in development</title>
-								<g class="f-stroke f-muted">
-									<path d="M210 60 V42 M254 60 V42 M298 60 V42 M342 60 V42 M386 60 V42 M430 60 V42" />
-									<path d="M210 340 V358 M254 340 V358 M298 340 V358 M342 340 V358 M386 340 V358 M430 340 V358" />
-									<path d="M180 90 H162 M180 134 H162 M180 178 H162 M180 222 H162 M180 266 H162 M180 310 H162" />
-									<path d="M460 90 H478 M460 134 H478 M460 178 H478 M460 222 H478 M460 266 H478 M460 310 H478" />
-								</g>
-								<rect class="f-stroke" x="180" y="60" width="280" height="280" />
-								<rect class="f-stroke f-muted" x="210" y="90" width="220" height="220" />
-								<g class="f-accent-fill">
-									<rect x="220" y="100" width="44" height="44" />
-									<rect x="324" y="100" width="44" height="44" />
-									<rect x="272" y="152" width="44" height="44" />
-									<rect x="376" y="152" width="44" height="44" />
-									<rect x="220" y="204" width="44" height="44" />
-									<rect x="324" y="204" width="44" height="44" />
-									<rect x="272" y="256" width="44" height="44" />
-									<rect x="376" y="256" width="44" height="44" />
-								</g>
-								<g class="f-stroke f-muted">
-									<rect x="272" y="100" width="44" height="44" />
-									<rect x="376" y="100" width="44" height="44" />
-									<rect x="220" y="152" width="44" height="44" />
-									<rect x="324" y="152" width="44" height="44" />
-									<rect x="272" y="204" width="44" height="44" />
-									<rect x="376" y="204" width="44" height="44" />
-									<rect x="220" y="256" width="44" height="44" />
-									<rect x="324" y="256" width="44" height="44" />
-								</g>
-								<text class="f-label f-label-center" x="320" y="386">APPLE M1 — AGX GPU</text>
-							</svg>
+						<figure class="feature-figure feature-figure-status">
+							<ul class="driver-status" aria-hidden="true">
+								<li class="is-done"><span class="status-dot" aria-hidden="true"></span>AGX GPU driver</li>
+								<li class="is-active"><span class="status-dot" aria-hidden="true"></span>DCP display controller</li>
+								<li><span class="status-dot status-dot-pending" aria-hidden="true"></span>DRM + GEM buffer objects</li>
+								<li><span class="status-dot status-dot-pending" aria-hidden="true"></span>Mesa / OpenGL acceleration</li>
+							</ul>
 						</figure>
 						<div class="feature-copy">
 							<p class="feature-wip"><span class="status-dot" aria-hidden="true"></span>Work in progress</p>
@@ -666,7 +545,7 @@ cd vinix
 					<article id="feature-supported-hardware" class="feature">
 						<figure class="feature-figure feature-figure-photo">
 							<img
-								src="assets/vinix-mac-family-dark.png"
+								src="assets/vinix-mac-family-transparent.png"
 								width="1448"
 								height="1086"
 								loading="lazy"
@@ -687,50 +566,37 @@ cd vinix
 						</div>
 					</article>
 				</div>
-				<div class="feature-list feature-list-principles">
-					<article id="feature-screen-usage" class="feature feature-principle">
-						<figure class="feature-figure principle-figure" aria-hidden="true">
-							<div class="screen-layout-illustration">
-								<span></span><span></span><span></span><span></span>
-							</div>
-						</figure>
-						<div class="feature-copy">
-							<h3>Use the screen well</h3>
-							<p>No extra padding or rounded corners. More room for your work.</p>
-						</div>
+				<div class="feature-list-principles">
+					<article id="feature-screen-usage" class="feature-principle">
+						<svg class="principle-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+							<path d="M4 10V5a1 1 0 0 1 1-1h5M24 10V5a1 1 0 0 0-1-1h-5M4 18v5a1 1 0 0 0 1 1h5M24 18v5a1 1 0 0 1-1 1h-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						<h3>Use the screen well</h3>
+						<p>No extra padding or rounded corners. More room for your work.</p>
 					</article>
-					<article id="feature-one-way" class="feature feature-principle">
-						<figure class="feature-figure principle-figure" aria-hidden="true">
-							<div class="single-path-illustration">
-								<span>Vinix</span><i></i><span>desktop</span><i></i><span>apps</span>
-							</div>
-						</figure>
-						<div class="feature-copy">
-							<h3>One way to do things</h3>
-							<p>One distro, UI, package manager, init system, and binary format. No need to make constant choices. And it all just works.</p>
-						</div>
+					<article id="feature-one-way" class="feature-principle">
+						<svg class="principle-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+							<path d="M5 14h18M17 8l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						<h3>One way to do things</h3>
+						<p>One distro, UI, package manager, init system, and binary format. No need to make constant choices. And it all just works.</p>
 					</article>
-					<article id="feature-customization" class="feature feature-principle">
-						<figure class="feature-figure principle-figure" aria-hidden="true">
-							<div class="customize-illustration">
-								<span></span><span></span><span></span>
-							</div>
-						</figure>
-						<div class="feature-copy">
-							<h3>Change what you need</h3>
-							<p>Customize the system to work the way you want.</p>
-						</div>
+					<article id="feature-customization" class="feature-principle">
+						<svg class="principle-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+							<path d="M4 9h12M20 9h4M4 19h4M12 19h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+							<circle cx="16" cy="9" r="2.4" fill="currentColor" />
+							<circle cx="9" cy="19" r="2.4" fill="currentColor" />
+						</svg>
+						<h3>Change what you need</h3>
+						<p>Customize the system to work the way you want.</p>
 					</article>
-					<article class="feature feature-principle">
-						<figure class="feature-figure principle-figure" aria-hidden="true">
-							<div class="theme-illustration">
-								<span></span><span></span><span></span><span></span>
-							</div>
-						</figure>
-						<div class="feature-copy">
-							<h3>Themes you can choose</h3>
-							<p>Pick from many themes. You can make it look like macOS Catalina or even Windows XP.</p>
-						</div>
+					<article class="feature-principle">
+						<svg class="principle-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+							<circle cx="14" cy="14" r="9.5" stroke="currentColor" stroke-width="1.6" />
+							<path d="M14 4.5a9.5 9.5 0 0 1 0 19z" fill="currentColor" />
+						</svg>
+						<h3>Themes you can choose</h3>
+						<p>Pick from many themes. You can make it look like macOS Catalina or even Windows XP.</p>
 					</article>
 				</div>
 			</section>
@@ -834,7 +700,7 @@ cd vinix
 								and a small amount of architecture-specific assembly where hardware requires it.
 							</p>
 							<p>
-								The original kernel core (including its physical and virtual memory managers and scheduler) was written by <a href="https://github.com/mintsuki" target=_blank>mintsuki</a>, the creator of Limine. After a roughly two-year pause in development, <a href="https://github.com/medvednikov" target=_blank>Alexander Medvednikov</a> became its new maintainer. Since then, Vinix got storage, networking, input, graphics, 
+								The original kernel core (including its physical and virtual memory managers and scheduler) was written by <a href="https://github.com/mintsuki" target=_blank>mintsuki</a>, the creator of Limine. After a roughly two-year pause in development, <a href="https://github.com/medvednikov" target=_blank>Alexander Medvednikov</a> became its new maintainer. Since then, Vinix got storage, networking, input, graphics,
 								Unix-style userspace support, and compatibility with Alpine Linux binaries.
 							</p>
 							<p>The system image pairs that kernel with an initramfs and a
@@ -1046,7 +912,7 @@ cd vinix
 					target="_blank"
 					rel="noreferrer"
 				>
-					Sponsor on GitHub
+					<span class="button-label">Sponsor on GitHub</span>
 				</a>
 			</section>
 
@@ -1060,13 +926,14 @@ cd vinix
 					</p>
 				</div>
 				<a class="button button-light" href="mailto:alexander@medvednikov.com">
-					Email the maintainer
+					<span class="button-label">Email the maintainer</span>
 				</a>
 			</section>
 		</main>
 
 		<footer>
 			<p>Vinix is open source and built by its community.</p>
+
 			<div class="social-links" aria-label="Vinix community links">
 				<a
 					class="social-link"
@@ -1096,6 +963,7 @@ cd vinix
 					<img src="assets/GitHub-Mark-32px.png" alt="" />
 				</a>
 			</div>
+			<p>Site made with 🤍 by <a href="https://esslinger.systems">Robert Esslinger</a> </p>
 		</footer>
 	</body>
 </html>
